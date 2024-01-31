@@ -15,6 +15,7 @@ export const CustomersPage = () => {
         selectedDate,
         isLoading,
         setRoutesByDate,
+        setCustomers,
     } = useCustomersStore()
 
     const { token } = useTokenStore()
@@ -23,7 +24,7 @@ export const CustomersPage = () => {
         useCallback(() => {
             setRoutesByDate(token, selectedDate)
             return () => {
-                console.log('CustomersPage Unmounted')
+                setCustomers([])
             }
         }, [])
     )

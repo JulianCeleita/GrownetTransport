@@ -24,7 +24,7 @@ const PinLogin = () => {
   const [loading, setLoading] = useState(false)
   const [showEmptyInputModal, setShowEmptyInputModal] = useState(false)
   const { setEmployeeToken } = useEmployeeStore()
-  const [setKeyboardOpen] = useState(false)
+  const [, setKeyboardOpen] = useState(false)
 
 
   useEffect(() => {
