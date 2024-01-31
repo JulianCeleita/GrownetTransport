@@ -1,0 +1,67 @@
+{
+  "cli": {
+    "version": ">= 7.1.2"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_BASE_URL": "https://api.grownetapp.com/grownet/api",
+        "EXPO_PUBLIC_LOGIN": "/login/login",
+        "EXPO_PUBLIC_LOGIN_EMPLOYEE": "/employees/login",
+        "EXPO_PUBLIC_DATES_AVAILABLES": "/suppliers/operationHistory",
+        "EXPO_PUBLIC_DELIVERY_ROUTES": "/deliveryRoutes/show",
+        "EXPO_PUBLIC_PRODUCTS_PACKING": "/packing/",
+        "EXPO_PUBLIC_INSERT_PACKING": "/packing/insert",
+        "EXPO_PUBLIC_PRODUCTS_LOADING": "/loading/",
+        "EXPO_PUBLIC_INSERT_LOADING": "/loading/insert",
+        "EXPO_PUBLIC_SHORT_BULK": "/short/bulk",
+        "EXPO_PUBLIC_SHORT_INSERT": "/short/insert",
+        "EXPO_PUBLIC_SHORT_VAN": "/short/van",
+        "EXPO_PUBLIC_PERCENTAGE_PACKING": "/orders/suppliers/packing",
+        "EXPO_PUBLIC_PERCENTAGE_LOADING": "/orders/suppliers/loading"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_BASE_URL": "https://api.grownetapp.com/grownet/api",
+        "EXPO_PUBLIC_LOGIN": "/login/login",
+        "EXPO_PUBLIC_LOGIN_EMPLOYEE": "/employees/login",
+        "EXPO_PUBLIC_DATES_AVAILABLES": "/suppliers/operationHistory",
+        "EXPO_PUBLIC_DELIVERY_ROUTES": "/deliveryRoutes/show",
+        "EXPO_PUBLIC_PRODUCTS_PACKING": "/packing/",
+        "EXPO_PUBLIC_INSERT_PACKING": "/packing/insert",
+        "EXPO_PUBLIC_PRODUCTS_LOADING": "/loading/",
+        "EXPO_PUBLIC_INSERT_LOADING": "/loading/insert",
+        "EXPO_PUBLIC_SHORT_BULK": "/short/bulk",
+        "EXPO_PUBLIC_SHORT_INSERT": "/short/insert",
+        "EXPO_PUBLIC_SHORT_VAN": "/short/van",
+        "EXPO_PUBLIC_PERCENTAGE_PACKING": "/orders/suppliers/packing",
+        "EXPO_PUBLIC_PERCENTAGE_LOADING": "/orders/suppliers/loading"
+      }
+    },
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_BASE_URL": "https://api.grownetapp.com/grownet/api",
+        "EXPO_PUBLIC_LOGIN": "/login/login",
+        "EXPO_PUBLIC_LOGIN_EMPLOYEE": "/employees/login",
+        "EXPO_PUBLIC_DATES_AVAILABLES": "/suppliers/operationHistory",
+        "EXPO_PUBLIC_DELIVERY_ROUTES": "/deliveryRoutes/show",
+        "EXPO_PUBLIC_PRODUCTS_PACKING": "/packing/",
+        "EXPO_PUBLIC_INSERT_PACKING": "/packing/insert",
+        "EXPO_PUBLIC_PRODUCTS_LOADING": "/loading/",
+        "EXPO_PUBLIC_INSERT_LOADING": "/loading/insert",
+        "EXPO_PUBLIC_SHORT_BULK": "/short/bulk",
+        "EXPO_PUBLIC_SHORT_INSERT": "/short/insert",
+        "EXPO_PUBLIC_SHORT_VAN": "/short/van",
+        "EXPO_PUBLIC_PERCENTAGE_PACKING": "/orders/suppliers/packing",
+        "EXPO_PUBLIC_PERCENTAGE_LOADING": "/orders/suppliers/loading"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

@@ -2,7 +2,7 @@
   "expo": {
     "name": "GrownetTransporters",
     "slug": "GrownetTransporters",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/iconBlanco.png",
     "userInterfaceStyle": "light",
@@ -16,11 +16,12 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.creativejungle.grownetlogistic",
+      "bundleIdentifier": "com.creativejungle.grownettransporters",
       "icon": "./assets/IconBlanco.png",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.1"
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/IconBlancoAndroid.png",
         "backgroundColor": "#ffffff"
@@ -29,10 +30,16 @@
         "INTERNET",
         "ACCESS_FINE_LOCATION",
         "STORAGE"
-      ]
+      ],
+      "package": "com.creativejungle.grownettransporters"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "70e320ad-966b-48c8-b97b-1662f3be7167"
+      }
     }
   }
 }
