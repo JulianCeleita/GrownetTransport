@@ -2,7 +2,7 @@ import { Platform, StyleSheet } from 'react-native'
 import { colors } from './GlobalStyles'
 
 export const CustomerDayStyles = StyleSheet.create({
-  customerPricipal: {
+  customerPrincipal: {
     backgroundColor: 'white',
     flex: 1,
   },
