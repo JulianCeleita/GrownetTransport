@@ -1,14 +1,14 @@
+import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import { BtnCloseSession } from '../../components/BtnCloseSession'
-import { colors, GlobalStyles } from '../../styles/GlobalStyles'
-import { useShortVanStore } from '../../store/useShortVanStore'
-import useEmployeeStore from '../../store/useEmployeeStore'
-import { useFocusEffect } from '@react-navigation/native'
-import { ProductStyles } from '../../styles/ProductStyles'
-import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { BtnCloseSession } from '../../components/BtnCloseSession'
 import { ProductsCardShortsVan } from '../../components/ProductsCardShortsVan'
+import useEmployeeStore from '../../store/useEmployeeStore'
+import { useShortVanStore } from '../../store/useShortVanStore'
+import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
+import { GlobalStyles, colors } from '../../styles/GlobalStyles'
+import { ProductStyles } from '../../styles/ProductStyles'
 
 export const ShortsVanPage = () => {
 
@@ -19,25 +19,29 @@ export const ShortsVanPage = () => {
         isLoading,
     } = useShortVanStore()
 
-    const { employeeToken } = useEmployeeStore()
+    const { employeeToken, selectedDate, selectedRoute } = useEmployeeStore()
     const [toggle, setToggle] = useState(false)
-    const [dataVan, setDataVan] = useState({
-        routeName: "R1",
-        date: new Date().toISOString().slice(0, 10),
-    })
 
     useFocusEffect(
         useCallback(() => {
-            setFetchShortVanProducts(employeeToken, dataVan, toggle)
+            setFetchShortVanProducts(
+                employeeToken,
+                { routeName: selectedRoute, date: selectedDate },
+                toggle
+            )
             return () => {
                 setRestaurantData([])
                 setToggle(false)
             }
-        }, [employeeToken]),
+        }, [selectedDate, selectedRoute]),
     )
 
     useEffect(() => {
-        setFetchShortVanProducts(employeeToken, dataVan, toggle)
+        setFetchShortVanProducts(
+            employeeToken,
+            { routeName: selectedRoute, date: selectedDate },
+            toggle
+        )
     }, [toggle])
 
     const updateProductsVan = (itemId, quantity = null, state = null) => {
@@ -74,7 +78,7 @@ export const ShortsVanPage = () => {
             <View style={CustomerDayStyles.title2}>
                 <View>
                     <Text style={CustomerDayStyles.customerTitle}>
-                        {dataVan.routeName}
+                        {selectedRoute}
                     </Text>
                     <View style={CustomerDayStyles.titleNA}>
                         <Text style={CustomerDayStyles.restaurantTypeTitle}>N/A</Text>

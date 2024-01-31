@@ -4,13 +4,11 @@ import { deliveryRoutes } from "../config/urls.config";
 
 export const useCustomersStore = create((set) => ({
   customers: [],
-  selectedRoute: "R1",
-  selectedDate: new Date().toISOString().slice(0, 10),
   isLoading: false,
   setCustomers: (customer) => {
     set({ customers: customer });
   },
-  setRoutesByDate: async (token, date) => {
+  setRoutesByDate: async (token, date, selectedRoute) => {
     try {
       set({ isLoading: true });
 
@@ -30,8 +28,10 @@ export const useCustomersStore = create((set) => ({
       });
 
       const selectedRoutes = RoutesByDate.find(
-        (route) => route.nameRoute === "R1"
+        (route) => route.nameRoute === selectedRoute
       );
+
+      console.log("Selected Routes:", selectedRoutes);
 
       const customer = selectedRoutes.accounts || [];
       set({ customers: customer });

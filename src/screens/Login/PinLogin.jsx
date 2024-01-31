@@ -23,7 +23,7 @@ const PinLogin = () => {
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const [showEmptyInputModal, setShowEmptyInputModal] = useState(false)
-  const { setEmployeeToken } = useEmployeeStore()
+  const { setEmployeeToken, setSelectedRoute, setSelectedDate } = useEmployeeStore()
   const [, setKeyboardOpen] = useState(false)
 
 
@@ -68,6 +68,8 @@ const PinLogin = () => {
       .post(loginEmployee, requestData)
       .then((response) => {
         if (response.data.status === 200) {
+          setSelectedRoute("R1") // TODO: Cambiar la ruta cuando llegue asignada al usuario logueado
+          setSelectedDate(new Date().toISOString().slice(0, 10))
           setEmployeeToken(response.data.token)
           setLoading(false)
         } else {
