@@ -26,10 +26,10 @@ const Stack = createNativeStackNavigator()
 function StackCustomers() {
   return (
     <Stack.Navigator
-      initialRouteName="ShortsVans"
+      initialRouteName="CustomersPage"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="Customers" component={CustomersPage} />
+      <Stack.Screen name="CustomersPage" component={CustomersPage} />
       <Stack.Screen name="CustomersActions" component={CustomerActions} />
     </Stack.Navigator>
   )
@@ -38,14 +38,14 @@ function StackCustomers() {
 function MyTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="CustomersTab"
+      initialRouteName="Customers"
       screenOptions={{
         tabBarActiveTintColor: colors.darkBlue,
         headerShown: false,
       }}
     >
       <Tab.Screen
-        name="CustomersTab"
+        name="Customers"
         component={StackCustomers}
         options={{
           tabBarIcon: ({ color, size }) => (

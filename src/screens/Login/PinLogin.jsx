@@ -69,7 +69,6 @@ const PinLogin = () => {
         if (response.data.status === 200) {
           setEmployeeToken(response.data.token)
           setLoading(false)
-          navigation.navigate('CustomDate')
         } else {
           setShowModal(true)
           setLoading(false)
