@@ -31,8 +31,6 @@ export const useCustomersStore = create((set) => ({
         (route) => route.nameRoute === selectedRoute
       );
 
-      console.log("Selected Routes:", selectedRoutes);
-
       const customer = selectedRoutes.accounts || [];
       set({ customers: customer });
 
