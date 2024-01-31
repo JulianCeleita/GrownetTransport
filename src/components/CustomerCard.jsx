@@ -13,6 +13,7 @@ const CustomerCard = ({ customer }) => {
     <View>
       <TouchableOpacity
         style={[CustomerDayStyles.card, GlobalStyles.boxShadow]}
+        onPress={() => navigation.navigate('CustomerActions', { customer })}
       >
         <View style={CustomerDayStyles.cardsLayout}>
           <MaterialCommunityIcons

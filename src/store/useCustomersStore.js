@@ -4,7 +4,8 @@ import { deliveryRoutes } from "../config/urls.config";
 
 export const useCustomersStore = create((set) => ({
   customers: [],
-  routesByDate: [],
+  selectedRoute: "R1",
+  selectedDate: new Date().toISOString().slice(0, 10),
   isLoading: false,
   setCustomers: (customer) => {
     set({ customers: customer });
@@ -28,25 +29,17 @@ export const useCustomersStore = create((set) => ({
         return a.nameRoute.localeCompare(b.nameRoute);
       });
 
-      set({ routesByDate: RoutesByDate });
+      const selectedRoutes = RoutesByDate.find(
+        (route) => route.nameRoute === "R1"
+      );
+
+      const customer = selectedRoutes.accounts || [];
+      set({ customers: customer });
+
       set({ isLoading: false });
     } catch (error) {
       set({ isLoading: false });
       console.error("Error during request:", error);
-    }
-  },
-  setOrdersByDate: (nameRoute, routesByDate) => {
-    const selectedRoute = routesByDate.find(
-      (route) => route.nameRoute === nameRoute
-    );
-    if (selectedRoute) {
-      const orderByDate = selectedRoute.accounts || [];
-      set({ customers: orderByDate });
-    } else {
-      console.error(
-        "No se encontró la ruta con el nombre especificado:",
-        nameRoute
-      );
     }
   },
 }));

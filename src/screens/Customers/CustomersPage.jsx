@@ -12,23 +12,16 @@ export const CustomersPage = () => {
 
     const {
         customers,
+        selectedDate,
         isLoading,
         setRoutesByDate,
-        routesByDate,
-        setOrdersByDate
     } = useCustomersStore()
 
     const { token } = useTokenStore()
 
-    const getData = async () => {
-        const date = new Date().toISOString().slice(0, 10)
-        await setRoutesByDate(token, date)
-        setOrdersByDate('R1', routesByDate)
-    }
-
     useFocusEffect(
         useCallback(() => {
-            getData()
+            setRoutesByDate(token, selectedDate)
             return () => {
                 console.log('CustomersPage Unmounted')
             }

@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import {
   Image,
@@ -25,13 +24,15 @@ const PinLogin = () => {
   const [loading, setLoading] = useState(false)
   const [showEmptyInputModal, setShowEmptyInputModal] = useState(false)
   const { setEmployeeToken } = useEmployeeStore()
-  const [keyboardOpen, setKeyboardOpen] = useState(false)
-  const navigation = useNavigation()
+  const [setKeyboardOpen] = useState(false)
+
+
   useEffect(() => {
     if (pin.length === 4) {
       handleSignIn()
     }
   }, [pin])
+
   useEffect(() => {
     if (Platform.OS === 'android') {
       const keyboardDidShowListener = Keyboard.addListener(

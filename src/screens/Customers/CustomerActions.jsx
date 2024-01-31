@@ -1,10 +1,13 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { SafeAreaView, Text, View } from 'react-native'
 
-export const CustomerActions = () => {
+export const CustomerActions = ({ route }) => {
+
+    const { customer } = route.params
+
     return (
-        <View>
-            <Text>CustomerActions</Text>
-        </View>
+        <SafeAreaView>
+            <Text>{customer.accountName}</Text>
+        </SafeAreaView>
     )
 }

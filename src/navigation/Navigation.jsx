@@ -30,7 +30,7 @@ function StackCustomers() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="CustomersPage" component={CustomersPage} />
-      <Stack.Screen name="CustomersActions" component={CustomerActions} />
+      <Stack.Screen name="CustomerActions" component={CustomerActions} />
     </Stack.Navigator>
   )
 }
