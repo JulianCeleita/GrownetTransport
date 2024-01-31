@@ -1,34 +1,35 @@
+import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback } from 'react'
 import { ActivityIndicator, SafeAreaView, ScrollView, Text, View } from 'react-native'
 import { BtnCloseSession } from '../../components/BtnCloseSession'
-import { colors } from '../../styles/GlobalStyles'
-import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
-import { useFocusEffect } from '@react-navigation/native'
-import { useCustomersStore } from '../../store/useCustomersStore'
-import useTokenStore from '../../store/useTokenStore'
 import CustomerCard from '../../components/CustomerCard'
+import { useCustomersStore } from '../../store/useCustomersStore'
+import useEmployeeStore from '../../store/useEmployeeStore'
+import useTokenStore from '../../store/useTokenStore'
+import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
+import { colors } from '../../styles/GlobalStyles'
 
 export const CustomersPage = () => {
 
     const {
         customers,
-        selectedDate,
         isLoading,
         setRoutesByDate,
         setCustomers,
     } = useCustomersStore()
 
+    const { selectedDate, selectedRoute } = useEmployeeStore()
+
     const { token } = useTokenStore()
 
     useFocusEffect(
         useCallback(() => {
-            setRoutesByDate(token, selectedDate)
+            setRoutesByDate(token, selectedDate, selectedRoute)
             return () => {
                 setCustomers([])
             }
-        }, [])
+        }, [selectedDate, selectedRoute])
     )
-
 
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>
