@@ -174,7 +174,7 @@ export const ProductsCardShortsVan = ({
 
               <View style={ProductStyles.qty}>
                 <Text style={ProductStyles.textCard}>
-                  Qty: {quantityPressed}
+                  Qty: {`${isDecimal(quantityPressed)}`}
                 </Text>
                 <Text
                   style={[

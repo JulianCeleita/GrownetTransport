@@ -7,17 +7,22 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native'
-import { GlobalStyles } from '../styles/GlobalStyles'
+import { GlobalStyles, colors } from '../styles/GlobalStyles'
 import { ModalStyle } from '../styles/ModalStyles'
+import { useGetEvidence } from '../hooks/useGetEvidence'
 
 const ModalProduct = ({
   showModal,
   setShowModal,
+  confirm,
   setStateCardDefault = null,
   title,
   text,
-  confirm,
+  modalEvidence = null,
+  setEvidence = null,
 }) => {
+
+  const { pickImageFromGallery, pickImageFromCamera } = useGetEvidence()
   const handleClose = () => {
     if (setStateCardDefault) {
       setStateCardDefault()
@@ -27,7 +32,7 @@ const ModalProduct = ({
   return (
     <Modal
       visible={showModal}
-      animationType="fade"
+      animationType="slide"
       transparent={true}
       onRequestClose={''}
     >
@@ -38,13 +43,37 @@ const ModalProduct = ({
               <MaterialIcons name="error-outline" size={45} color="#ee6055" />
               <Text style={ModalStyle.modalTextTitle}>{title}</Text>
               <Text style={ModalStyle.modalText}>{text}</Text>
+
+              {modalEvidence ? (
+                <View style={ModalStyle.optionsContainer}>
+                  <TouchableOpacity
+                    onPress={() => pickImageFromGallery(setEvidence, handleClose)}
+                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <MaterialIcons name="collections" size={35} color={colors.darkBlue} />
+                    <Text style={ModalStyle.modalText}>Gallery</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => pickImageFromCamera(setEvidence, handleClose)}
+                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <MaterialIcons name="camera-alt" size={35} color={colors.darkBlue} />
+                    <Text style={ModalStyle.modalText}>Camera</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : null}
+
               <View style={[ModalStyle.buttons, { marginTop: 10 }]}>
-                <TouchableOpacity
-                  onPress={confirm}
-                  style={[GlobalStyles.btnPrimary, ModalStyle.space]}
-                >
-                  <Text style={GlobalStyles.textBtnSecundary}>Confirm</Text>
-                </TouchableOpacity>
+
+                {!modalEvidence ? (
+                  <TouchableOpacity
+                    onPress={confirm}
+                    style={[GlobalStyles.btnPrimary, ModalStyle.space]}
+                  >
+                    <Text style={GlobalStyles.textBtnSecundary}>Confirm</Text>
+                  </TouchableOpacity>
+                ) : null}
+
                 <TouchableOpacity
                   onPress={handleClose}
                   style={GlobalStyles.btnOutline}

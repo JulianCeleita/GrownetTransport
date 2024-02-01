@@ -74,7 +74,7 @@ export const ShortsVanPage = () => {
 
     return (
         <SafeAreaView style={ProductStyles.products}>
-            <BtnCloseSession color={colors.bluePrimary} />
+            {/* <BtnCloseSession color={colors.bluePrimary} /> */}
             <View style={CustomerDayStyles.title2}>
                 <View>
                     <Text style={CustomerDayStyles.customerTitle}>
