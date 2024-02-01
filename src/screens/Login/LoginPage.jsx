@@ -77,7 +77,7 @@ const LoginPage = () => {
           <StatusBar style="light" />
           <Image source={logo} style={LoginStyles.logo} />
           <Text style={LoginStyles.loginHeaderText}>
-            Welcome to <Text style={LoginStyles.span}>Grownet Transporters</Text>
+            Welcome to <Text style={LoginStyles.span}>Grownet Transport</Text>
           </Text>
           <TextInput
             style={LoginStyles.input}
