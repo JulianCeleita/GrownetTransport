@@ -150,4 +150,18 @@ export const CustomerDayStyles = StyleSheet.create({
   toggleDotOn: {
     backgroundColor: 'white',
   },
+  actionsContainer: {
+    flex: 3,
+    margin: 10,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleActionContainer: {
+    flex: 0.2,
+    margin: 10,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })
