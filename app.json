@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Grownettransport",
+    "name": "Grownet Transport",
     "slug": "Grownettransport",
     "version": "1.0.1",
     "orientation": "portrait",
@@ -38,7 +38,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "70e320ad-966b-48c8-b97b-1662f3be7167"
+        "projectId": "4ebaf71a-7fb1-4617-ad51-51d96de49993"
       }
     }
   }
