@@ -71,4 +71,12 @@ export const ModalStyle = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
   },
+  optionsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 50,
+    margin: 10,
+    height: 70,
+  },
 })

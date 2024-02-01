@@ -68,7 +68,8 @@ const PinLogin = () => {
       .post(loginEmployee, requestData)
       .then((response) => {
         if (response.data.status === 200) {
-          setSelectedRoute("R1") // TODO: Cambiar la ruta cuando llegue asignada al usuario logueado
+          // TODO: Cambiar la ruta cuando llegue asignada al usuario logueado
+          setSelectedRoute("R1")
           setSelectedDate(new Date().toISOString().slice(0, 10))
           setEmployeeToken(response.data.token)
           setLoading(false)
