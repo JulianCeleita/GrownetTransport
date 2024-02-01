@@ -25,6 +25,9 @@
     },
     "preview": {
       "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
       "env": {
         "EXPO_PUBLIC_BASE_URL": "https://api.grownetapp.com/grownet/api",
         "EXPO_PUBLIC_LOGIN": "/login/login",
