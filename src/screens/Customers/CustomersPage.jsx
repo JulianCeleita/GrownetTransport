@@ -67,7 +67,7 @@ export const CustomersPage = () => {
                 )}
 
             </ScrollView>
-            <BtnCloseSession color={colors.bluePrimary} />
+            {/* <BtnCloseSession color={colors.bluePrimary} /> */}
         </SafeAreaView >
     )
 }

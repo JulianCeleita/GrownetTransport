@@ -17,13 +17,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.creativejungle.grownettransport",
-      "icon": "./assets/IconBlanco.png",
+      "icon": "./assets/iconBlanco.png",
       "buildNumber": "1.0.1"
     },
     "android": {
       "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/IconBlancoAndroid.png",
+        "foregroundImage": "./assets/iconBlancoAndroid.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
