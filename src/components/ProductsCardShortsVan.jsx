@@ -25,7 +25,7 @@ export const ProductsCardShortsVan = ({
 
   const positiveOffset = 30
   const negativeOffset = -30
-  const quantityPressed = item.quantity - item.cant_insert
+  const quantityPressed = item.total - item.cant_insert
 
   const handlePress = (itemId) => {
     if (isNA) {
@@ -174,7 +174,7 @@ export const ProductsCardShortsVan = ({
 
               <View style={ProductStyles.qty}>
                 <Text style={ProductStyles.textCard}>
-                  Qty: {quantityPressed}
+                  Qty: {`${isDecimal(quantityPressed)}`}
                 </Text>
                 <Text
                   style={[
