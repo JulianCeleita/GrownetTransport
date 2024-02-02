@@ -33,9 +33,6 @@
       ],
       "package": "com.creativejungle.grownettransport"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "extra": {
       "eas": {
         "projectId": "4ebaf71a-7fb1-4617-ad51-51d96de49993"
