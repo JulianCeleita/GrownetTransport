@@ -4,10 +4,10 @@
     "slug": "Grownettransport",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/IconBlanco.png",
+    "icon": "./assets/iconBlanco.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/SplashBlanco.png",
+      "image": "./assets/splashBlanco.png",
       "resizeMode": "contain",
       "backgroundColor": "#026CD2"
     },
