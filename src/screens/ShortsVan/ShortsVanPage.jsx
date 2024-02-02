@@ -7,8 +7,10 @@ import { ProductsCardShortsVan } from '../../components/ProductsCardShortsVan'
 import useEmployeeStore from '../../store/useEmployeeStore'
 import { useShortVanStore } from '../../store/useShortVanStore'
 import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
-import { GlobalStyles, colors } from '../../styles/GlobalStyles'
+import { GlobalStyles } from '../../styles/GlobalStyles'
 import { ProductStyles } from '../../styles/ProductStyles'
+import { useProductSubmit } from '../../hooks/useProductSubmit'
+import { insertShort } from '../../config/urls.config'
 
 export const ShortsVanPage = () => {
 
@@ -18,6 +20,8 @@ export const ShortsVanPage = () => {
         setFetchShortVanProducts,
         isLoading,
     } = useShortVanStore()
+
+    const { handleSubmit } = useProductSubmit(insertShort)
 
     const { employeeToken, selectedDate, selectedRoute } = useEmployeeStore()
     const [toggle, setToggle] = useState(false)
@@ -139,7 +143,7 @@ export const ShortsVanPage = () => {
                                                 <ProductsCardShortsVan
                                                     key={index}
                                                     item={product}
-                                                    // handleSubmit={handleSubmit}
+                                                    handleSubmit={handleSubmit}
                                                     updateProductsVan={updateProductsVan}
                                                 />
                                             ))}

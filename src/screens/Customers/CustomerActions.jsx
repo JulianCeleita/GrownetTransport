@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Platform, SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
 import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
 import { BtnGoBack } from '../../components/BtnGoBack'
@@ -23,6 +23,16 @@ export const CustomerActions = ({ route }) => {
         navigation.goBack()
     }
 
+    useEffect(() => {
+        if (evidence !== null) {
+            console.log('evidence', evidence)
+            //TODO: Aquí se envía la evidencia al servidor
+
+            setEvidence(null)
+        }
+    }, [evidence])
+
+
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>
             <BtnGoBack color={colors.darkBlue} top={Platform.OS === 'ios' ? 70 : 15} />
@@ -43,7 +53,7 @@ export const CustomerActions = ({ route }) => {
                         { justifyContent: 'center', alignItems: 'center' }
                     ]}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <MaterialIcons name="camera-alt" size={35} color={colors.darkBlue} />
+                        <MaterialIcons style={{ marginRight: 10 }} name="check" size={35} color={colors.darkBlue} />
                         <Text style={ProductStyles.tittleCard}>Delivered</Text>
                     </View>
                 </TouchableOpacity>
@@ -55,7 +65,7 @@ export const CustomerActions = ({ route }) => {
                         GlobalStyles.boxShadow,
                         { justifyContent: 'center', alignItems: 'center' }
                     ]}>
-                    <MaterialIcons name="camera-alt" size={35} color={colors.darkBlue} />
+                    <MaterialIcons style={{ marginRight: 10 }} name="clear" size={35} color={colors.darkBlue} />
                     <Text style={ProductStyles.tittleCard}>Do not delivered</Text>
                 </TouchableOpacity>
 
@@ -66,7 +76,7 @@ export const CustomerActions = ({ route }) => {
                         GlobalStyles.boxShadow,
                         { justifyContent: 'center', alignItems: 'center' }
                     ]}>
-                    <MaterialIcons name="attach-file" size={35} color={colors.darkBlue} />
+                    <MaterialIcons style={{ marginRight: 10 }} name="attach-file" size={35} color={colors.darkBlue} />
                     <Text style={ProductStyles.tittleCard}>Add evidence</Text>
                 </TouchableOpacity>
             </View>
@@ -92,7 +102,7 @@ export const CustomerActions = ({ route }) => {
                 setShowModal={setShowModalEvidence}
                 confirm={confirm}
                 title={`Order: ${customer.orders_reference}`}
-                text={`Select the evidence you want to add to this order.`}
+                text={`Select evidence to add to order.`}
                 modalEvidence
                 setEvidence={setEvidence}
             />

@@ -20,17 +20,15 @@ export const useGetEvidence = () => {
           fileType: result.assets[0].uri.match(/\.(\w+)$/)?.[1],
         };
         setEvidence(dataImage);
+        handleClose();
         // console.log(dataImage);
         // console.log(result.assets[0].base64);
       }
     }
-    handleClose();
   };
 
   const pickImageFromCamera = async (setEvidence, handleClose) => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
-
-    console.log(status);
 
     if (status !== "granted") {
       alert("Sorry, we need camera permissions to make this work!");
@@ -55,11 +53,11 @@ export const useGetEvidence = () => {
           fileType: result.assets[0].uri.match(/\.(\w+)$/)?.[1],
         };
         setEvidence(dataImage);
+        handleClose();
         // console.log(dataImage);
         // console.log(result.assets[0].base64);
       }
     }
-    handleClose();
   };
 
   return {

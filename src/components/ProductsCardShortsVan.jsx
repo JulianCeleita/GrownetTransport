@@ -37,7 +37,7 @@ export const ProductsCardShortsVan = ({
     handleClose(false)
     setIsNA(false)
     updateProductsVan(itemId, quantityPressed)
-    // handleSubmit(itemId, quantityPressed, '', 'FULL')
+    handleSubmit(itemId, quantityPressed, '', 'FULL')
   }
 
   const handleDeclareNA = () => {
@@ -69,19 +69,19 @@ export const ProductsCardShortsVan = ({
     setIsNA(false)
     setShowModal(false)
     updateProductsVan(item.id)
-    // handleSubmit(item.id, 0, '', 'SHORT')
+    handleSubmit(item.id, 0, '', 'SHORT')
   }
 
   const confirmNA = () => {
     setShowModalNA(false)
     updateProductsVan(item.id, null, 'N/A')
-    // handleSubmit(item.id, 0, '', 'N/A')
+    handleSubmit(item.id, 0, '', 'N/A')
   }
 
   const confirmRevertNA = () => {
     setShowModalRevertNA(false)
     setIsNA(false)
-    // handleSubmit(item.id, 0, '', 'null')
+    handleSubmit(item.id, 0, '', 'null')
   }
 
   const setStateCardDefault = () => {
@@ -260,7 +260,7 @@ export const ProductsCardShortsVan = ({
               onPress={() => {
                 if (quantity && Number(quantity) > 0) {
                   updateProductsVan(item.id, quantity)
-                  // handleSubmit(item.id, quantity, note, '')
+                  handleSubmit(item.id, quantity, note, '')
                   setLeft(false)
                   setIsPressed(false)
                   setRight(true)
