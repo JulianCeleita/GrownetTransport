@@ -3,7 +3,7 @@ import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { CustomerDayStyles } from '../styles/CustomerDayStyles'
 import { GlobalStyles, colors } from '../styles/GlobalStyles'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons, AntDesign } from '@expo/vector-icons'
 
 const CustomerCard = ({ customer }) => {
 
@@ -29,6 +29,11 @@ const CustomerCard = ({ customer }) => {
           <Text style={CustomerDayStyles.textCustomer}>
             {customer.orders_reference}
           </Text>
+        </View>
+        <View
+          style={CustomerDayStyles.checkStatus}
+        >
+          <AntDesign name={`questioncircleo`} size={30} color="white" />
         </View>
       </TouchableOpacity>
     </View>
