@@ -15,7 +15,7 @@ const CustomerCard = ({ customer }) => {
         style={[CustomerDayStyles.card, GlobalStyles.boxShadow]}
         onPress={() => navigation.navigate('CustomerActions', { customer })}
       >
-        <View style={CustomerDayStyles.cardsLayout}>
+        <View style={CustomerDayStyles.iconCustomer}>
           <MaterialCommunityIcons
             name="package-variant"
             size={50}

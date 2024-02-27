@@ -73,14 +73,14 @@ export const CustomerDayStyles = StyleSheet.create({
     marginBottom: 2,
     marginTop: 10,
     width: 320,
-    height: 80,
+    height: 90,
   },
-  cardsLayout: {
-    width: 'auto',
-    marginLeft: 20,
+  iconCustomer: {
+    marginHorizontal: 10,
   },
   cardText: {
-    margin: 'auto',
+    maxWidth: '60%',
+    justifyContent: 'flex-start',
   },
   titleCustomer: {
     fontSize: 16,
