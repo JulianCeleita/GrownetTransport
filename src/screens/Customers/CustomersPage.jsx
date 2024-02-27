@@ -7,7 +7,6 @@ import { useCustomersStore } from '../../store/useCustomersStore'
 import useEmployeeStore from '../../store/useEmployeeStore'
 import useTokenStore from '../../store/useTokenStore'
 import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
-import { colors } from '../../styles/GlobalStyles'
 
 export const CustomersPage = () => {
 
@@ -30,6 +29,8 @@ export const CustomersPage = () => {
             }
         }, [selectedDate, selectedRoute])
     )
+
+    // console.log('customers', JSON.stringify(customers, null, 2));
 
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>

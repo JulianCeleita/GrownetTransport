@@ -7,6 +7,7 @@ import { ProductStyles } from '../../styles/ProductStyles'
 import ModalProduct from '../../components/ModalProduct'
 import { useNavigation } from '@react-navigation/native'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useProductSubmit } from '../../hooks/useProductSubmit'
 
 export const CustomerActions = ({ route }) => {
 
@@ -16,6 +17,9 @@ export const CustomerActions = ({ route }) => {
     const [showModalNotDelivered, setShowModalNotDelivered] = useState(false)
     const [showModalEvidence, setShowModalEvidence] = useState(false)
     const [evidence, setEvidence] = useState(null)
+    const [especialInstructions, setEspecialInstructions] = useState('Loading...')
+
+    const { getEspecialInstructions } = useProductSubmit()
 
     const confirm = () => {
         setShowModalDelivered(false)
@@ -23,15 +27,27 @@ export const CustomerActions = ({ route }) => {
         navigation.goBack()
     }
 
-    useEffect(() => {
-        if (evidence !== null) {
-            console.log('evidence', evidence)
-            //TODO: Aquí se envía la evidencia al servidor
-
-            setEvidence(null)
+    const getEspecialInstruction = async () => {
+        try {
+            const response = await getEspecialInstructions(customer.orders_reference)
+            setEspecialInstructions(response)
+        } catch (error) {
+            console.error('Error al obtener las instrucciones especiales: ', error)
         }
-    }, [evidence])
+    }
 
+    useEffect(() => {
+        // if (evidence !== null) {
+        //     console.log('evidence', evidence)
+        //     //TODO: Aquí se envía la evidencia al servidor
+
+        //     setEvidence(null)
+        // }
+    }, [evidence]);
+
+    useEffect(() => {
+        getEspecialInstruction()
+    }, []);
 
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>
@@ -46,7 +62,7 @@ export const CustomerActions = ({ route }) => {
             </View>
             <View style={CustomerDayStyles.actionsContainer}>
                 <TouchableOpacity
-                    onPress={() => setShowModalDelivered(true)}
+                    onPress={() => setShowModalEvidence(true)}
                     style={[
                         ProductStyles.card,
                         GlobalStyles.boxShadow,
@@ -66,19 +82,16 @@ export const CustomerActions = ({ route }) => {
                         { justifyContent: 'center', alignItems: 'center' }
                     ]}>
                     <MaterialIcons style={{ marginRight: 10 }} name="clear" size={35} color={colors.darkBlue} />
-                    <Text style={ProductStyles.tittleCard}>Do not delivered</Text>
+                    <Text style={ProductStyles.tittleCard}>Not delivered</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => setShowModalEvidence(true)}
-                    style={[
-                        ProductStyles.card,
-                        GlobalStyles.boxShadow,
-                        { justifyContent: 'center', alignItems: 'center' }
-                    ]}>
-                    <MaterialIcons style={{ marginRight: 10 }} name="attach-file" size={35} color={colors.darkBlue} />
-                    <Text style={ProductStyles.tittleCard}>Add evidence</Text>
-                </TouchableOpacity>
+                {especialInstructions ? (
+                    <>
+                        <Text style={[ProductStyles.tittleCard, { marginTop: 20, marginBottom: 10 }]}>Especial instructions:</Text>
+                        <Text style={ProductStyles.textCard}>{especialInstructions}</Text>
+                    </>
+                ) : null}
+
             </View>
 
             <ModalProduct

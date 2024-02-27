@@ -1,4 +1,5 @@
 import mainAxios from "../../axios.config.js";
+import { instructions } from "../config/urls.config.js";
 import useEmployeeStore from "../store/useEmployeeStore.js";
 
 export const useProductSubmit = (insert) => {
@@ -35,9 +36,9 @@ export const useProductSubmit = (insert) => {
     }
   };
 
-  const handleSubmitCustomer = async (endpoint, itemId, state = null, evidence = null) => {
+  const handleSubmitCustomer = async (endpoint, itemId, delivered = null, evidence = null) => {
     try {
-      const response = await mainAxios.post(endpoint, { id: itemId, state, evidence },
+      const response = await mainAxios.post(`${endpoint}${itemId}`, { id: itemId, delivered, evidence },
         {
           headers: {
             Authorization: `Bearer ${employeeToken}`,
@@ -56,8 +57,28 @@ export const useProductSubmit = (insert) => {
     }
   };
 
+  const getEspecialInstructions = async (itemId) => {
+    try {
+      const response = await mainAxios.get(`${instructions}${itemId}`, {
+        headers: {
+          Authorization: `Bearer ${employeeToken}`,
+        },
+      });
+
+      if (response.status === 200) {
+        return response.data.special_instructions[0].specialInstructions;
+      } else {
+        throw new Error("Error al enviar los datos");
+      }
+    } catch (error) {
+      console.error("Hubo un error al obtener los datos: ", error);
+      throw error;
+    }
+  }
+
   return {
     handleSubmit,
-    handleSubmitCustomer
+    handleSubmitCustomer,
+    getEspecialInstructions
   };
 };

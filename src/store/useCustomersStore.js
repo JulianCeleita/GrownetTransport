@@ -32,7 +32,7 @@ export const useCustomersStore = create((set) => ({
       );
 
       const customer = selectedRoutes.accounts || [];
-      set({ customers: customer });
+      set({ customers: customer.sort((a, b) => a.drop - b.drop) });
 
       set({ isLoading: false });
     } catch (error) {
