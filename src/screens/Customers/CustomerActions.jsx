@@ -19,12 +19,20 @@ export const CustomerActions = ({ route }) => {
     const [evidence, setEvidence] = useState(null)
     const [especialInstructions, setEspecialInstructions] = useState('Loading...')
 
-    const { getEspecialInstructions } = useProductSubmit()
+    const { getEspecialInstructions, handleSubmitCustomer } = useProductSubmit()
 
     const confirm = () => {
-        setShowModalDelivered(false)
+        if (showModalDelivered) {
+            setShowModalDelivered(false)
+            handleSubmitCustomer(customer.orders_reference, true, null);
+            setShowModalEvidence(true)
+        }
+
+        if (showModalNotDelivered) {
+            handleSubmitCustomer(customer.orders_reference, false, null);
+        }
+
         setShowModalNotDelivered(false)
-        navigation.goBack()
     }
 
     const getEspecialInstruction = async () => {
@@ -37,12 +45,10 @@ export const CustomerActions = ({ route }) => {
     }
 
     useEffect(() => {
-        // if (evidence !== null) {
-        //     console.log('evidence', evidence)
-        //     //TODO: Aquí se envía la evidencia al servidor
-
-        //     setEvidence(null)
-        // }
+        if (evidence !== null) {
+            handleSubmitCustomer(customer.orders_reference, null, evidence);
+            setEvidence(null)
+        }
     }, [evidence]);
 
     useEffect(() => {
@@ -51,7 +57,7 @@ export const CustomerActions = ({ route }) => {
 
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>
-            <BtnGoBack color={colors.darkBlue} top={Platform.OS === 'ios' ? 70 : 15} />
+            <BtnGoBack color={colors.darkBlue} top={Platform.OS === 'ios' ? 60 : 15} />
             <View style={CustomerDayStyles.title2}>
                 <Text style={CustomerDayStyles.customerTitle}>
                     {customer.accountName}
@@ -62,7 +68,7 @@ export const CustomerActions = ({ route }) => {
             </View>
             <View style={CustomerDayStyles.actionsContainer}>
                 <TouchableOpacity
-                    onPress={() => setShowModalEvidence(true)}
+                    onPress={() => setShowModalDelivered(true)}
                     style={[
                         ProductStyles.card,
                         GlobalStyles.boxShadow,

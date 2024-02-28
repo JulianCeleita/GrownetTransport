@@ -22,13 +22,15 @@ const ModalProduct = ({
   setEvidence = null,
 }) => {
 
-  const { pickImageFromGallery, pickImageFromCamera } = useGetEvidence()
+  const { pickImageFromGallery, pickImageFromCamera } = useGetEvidence();
+
   const handleClose = () => {
     if (setStateCardDefault) {
       setStateCardDefault()
     }
     setShowModal(false)
   }
+
   return (
     <Modal
       visible={showModal}
