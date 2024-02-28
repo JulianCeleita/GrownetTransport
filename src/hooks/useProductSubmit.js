@@ -37,25 +37,35 @@ export const useProductSubmit = (insert) => {
   };
 
   const handleSubmitCustomer = async (itemId, delivered = null, evidence = null) => {
-    console.log(JSON.stringify({ itemId, delivered, image: evidence }, null, 2));
-    // try {
-    //   const response = await mainAxios.post(`${setDelivered}${itemId}`, { delivered, image: evidence },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${employeeToken}`,
-    //       },
-    //     }
-    //   );
 
-    //   if (response.status === 200) {
-    //     console.log("Datos enviados correctamente", response.data);
-    //   } else {
-    //     throw new Error("Error al enviar los datos");
-    //   }
-    // } catch (error) {
-    //   console.error("Hubo un error al enviar los datos: ", error);
-    //   throw error;
-    // }
+    const data = {};
+    if (delivered !== null) {
+      data.delivered = delivered;
+    } else if (evidence !== null) {
+      data.image = evidence;
+    }
+
+    console.log("itemId", itemId);
+    console.log("data", JSON.stringify(data, null, 2));
+
+    try {
+      const response = await mainAxios.post(`${setDelivered}${itemId}`, data,
+        {
+          headers: {
+            Authorization: `Bearer ${employeeToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Datos enviados correctamente", response.data);
+      } else {
+        throw new Error("Error al enviar los datos");
+      }
+    } catch (error) {
+      console.error("Hubo un error al enviar los datos: ", error);
+      throw error;
+    }
   };
 
   const getEspecialInstructions = async (itemId) => {
@@ -75,7 +85,7 @@ export const useProductSubmit = (insert) => {
       console.error("Hubo un error al obtener los datos: ", error);
       throw error;
     }
-  }
+  };
 
   return {
     handleSubmit,
