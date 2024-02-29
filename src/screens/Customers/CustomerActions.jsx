@@ -18,6 +18,7 @@ export const CustomerActions = ({ route }) => {
     const [showModalEvidence, setShowModalEvidence] = useState(false)
     const [evidence, setEvidence] = useState(null)
     const [especialInstructions, setEspecialInstructions] = useState('Loading...')
+    const [notes, setNotes] = useState('')
 
     const { getEspecialInstructions, handleSubmitCustomer } = useProductSubmit()
 
@@ -29,7 +30,7 @@ export const CustomerActions = ({ route }) => {
         }
 
         if (showModalNotDelivered) {
-            handleSubmitCustomer(customer.orders_reference, false, null);
+            handleSubmitCustomer(customer.orders_reference, false, null, notes);
         }
 
         setShowModalNotDelivered(false)
@@ -114,6 +115,7 @@ export const CustomerActions = ({ route }) => {
                 confirm={confirm}
                 title={`Order: ${customer.orders_reference}`}
                 text={`¿Are you sure you want to mark this order as not delivered?`}
+                setNotes={setNotes}
             />
 
             <ModalProduct

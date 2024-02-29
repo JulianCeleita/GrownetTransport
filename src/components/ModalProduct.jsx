@@ -3,6 +3,7 @@ import React from 'react'
 import {
   Modal,
   Text,
+  TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -20,6 +21,7 @@ const ModalProduct = ({
   text,
   modalEvidence = null,
   setEvidence = null,
+  setNotes = null,
 }) => {
 
   const { pickImageFromGallery, pickImageFromCamera } = useGetEvidence();
@@ -62,6 +64,31 @@ const ModalProduct = ({
                     <MaterialIcons name="camera-alt" size={35} color={colors.darkBlue} />
                     <Text style={ModalStyle.modalText}>Camera</Text>
                   </TouchableOpacity>
+                </View>
+              ) : setNotes ? (
+                <View style={{ flex: 1, width: '100%' }}>
+                  <Text style={[
+                    ModalStyle.modalText, {
+                      fontWeight: 'bold',
+                      marginTop: 10,
+                      marginBottom: 5
+                    }
+                  ]}>Observations</Text>
+                  <TextInput
+                    multiline={true}
+                    numberOfLines={4}
+                    textAlignVertical='top'
+                    onChangeText={text => setNotes(text)}
+                    style={{
+                      height: 100,
+                      borderColor: 'gray',
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      paddingVertical: 5,
+                      paddingHorizontal: 5,
+                      marginBottom: 10,
+                    }}
+                  />
                 </View>
               ) : null}
 
