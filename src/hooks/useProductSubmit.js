@@ -36,23 +36,26 @@ export const useProductSubmit = (insert) => {
     }
   };
 
-  const handleSubmitCustomer = async (itemId, delivered = null, evidence = null) => {
+  const handleSubmitCustomer = async (itemId, delivered = true, evidence = null, notes = '') => {
 
-    const data = {};
-    if (delivered !== null) {
-      data.delivered = delivered;
-    } else if (evidence !== null) {
-      data.image = evidence;
+    const formData = new FormData();
+    if (evidence) {
+      formData.append('image', {
+        uri: evidence.fileUri,
+        type: `image/${evidence.fileType}`,
+        name: evidence.fileName,
+      });
     }
 
-    console.log("itemId", itemId);
-    console.log("data", JSON.stringify(data, null, 2));
+    formData.append('delivered', delivered);
+    formData.append('notes', notes);
 
     try {
-      const response = await mainAxios.post(`${setDelivered}${itemId}`, data,
+      const response = await mainAxios.post(`${setDelivered}${itemId}`, formData,
         {
           headers: {
             Authorization: `Bearer ${employeeToken}`,
+            'Content-Type': 'multipart/form-data',
           },
         }
       );

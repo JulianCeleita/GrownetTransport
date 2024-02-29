@@ -88,7 +88,7 @@ export const CustomerActions = ({ route }) => {
                         { justifyContent: 'center', alignItems: 'center' }
                     ]}>
                     <MaterialIcons style={{ marginRight: 10 }} name="clear" size={35} color={colors.darkBlue} />
-                    <Text style={ProductStyles.tittleCard}>Not delivered</Text>
+                    <Text style={ProductStyles.tittleCard}>Problems with my delivery</Text>
                 </TouchableOpacity>
 
                 {especialInstructions ? (

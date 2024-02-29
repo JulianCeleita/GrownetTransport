@@ -27,12 +27,18 @@ export const useCustomersStore = create((set) => ({
         return a.nameRoute.localeCompare(b.nameRoute);
       });
 
+      console.log('RoutesByDate', RoutesByDate);
+
       const selectedRoutes = RoutesByDate.find(
         (route) => route.nameRoute === selectedRoute
       );
 
-      const customer = selectedRoutes.accounts || [];
-      set({ customers: customer.sort((a, b) => a.drop - b.drop) });
+      if (selectedRoutes) {
+        const customer = selectedRoutes.accounts;
+        set({ customers: customer.sort((a, b) => a.drop - b.drop) });
+      } else {
+        set({ customers: [] });
+      }
 
       set({ isLoading: false });
     } catch (error) {

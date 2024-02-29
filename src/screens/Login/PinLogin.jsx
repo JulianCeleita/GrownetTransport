@@ -17,6 +17,7 @@ import logo from '../../img/Logo_Blanco.png'
 import useEmployeeStore from '../../store/useEmployeeStore'
 import { colors } from '../../styles/GlobalStyles'
 import { LoginStyles, PinNumericStyle } from '../../styles/LoginStyles'
+import useTokenStore from '../../store/useTokenStore'
 
 const PinLogin = () => {
   const [pin, setPin] = useState('')
@@ -25,6 +26,7 @@ const PinLogin = () => {
   const [showEmptyInputModal, setShowEmptyInputModal] = useState(false)
   const { setEmployeeToken, setSelectedRoute, setSelectedDate } = useEmployeeStore()
   const [, setKeyboardOpen] = useState(false)
+  const { setToken } = useTokenStore();
 
 
   useEffect(() => {
@@ -69,11 +71,8 @@ const PinLogin = () => {
       .then((response) => {
         if (response.data.status === 200) {
           // TODO: Cambiar la ruta cuando llegue asignada al usuario logueado
-          const date = new Date();
-          date.setDate(date.getDate() + 1);
-          setSelectedRoute("R4")
-          // setSelectedDate(new Date().toISOString().slice(0, 10));
-          setSelectedDate(date.toISOString().slice(0, 10));
+          setSelectedRoute("R6")
+          setSelectedDate(new Date().toISOString().slice(0, 10));
           setEmployeeToken(response.data.token)
           setLoading(false)
         } else {
