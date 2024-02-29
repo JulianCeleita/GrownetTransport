@@ -66,7 +66,7 @@ export const CustomerDayStyles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     backgroundColor: 'white',
     borderRadius: 20,
     margin: 8,
@@ -79,8 +79,9 @@ export const CustomerDayStyles = StyleSheet.create({
     marginHorizontal: 10,
   },
   cardText: {
-    maxWidth: '60%',
+    width: '70%',
     justifyContent: 'flex-start',
+    textAlign: 'left',
   },
   titleCustomer: {
     fontSize: 16,

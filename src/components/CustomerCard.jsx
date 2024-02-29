@@ -30,11 +30,6 @@ const CustomerCard = ({ customer }) => {
             {customer.orders_reference}
           </Text>
         </View>
-        <View
-          style={CustomerDayStyles.checkStatus}
-        >
-          <AntDesign name={`questioncircleo`} size={30} color="white" />
-        </View>
       </TouchableOpacity>
     </View>
   )

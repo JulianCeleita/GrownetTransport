@@ -3,12 +3,24 @@ import mainAxios from "../../axios.config";
 import { deliveryRoutes } from "../config/urls.config";
 
 export const useCustomersStore = create((set) => ({
+  routes: [],
   customers: [],
   isLoading: false,
-  setCustomers: (customer) => {
-    set({ customers: customer });
+  setCustomers: (routes, selectedRoute) => {
+    set({ isLoading: true });
+    const selectedRoutes = routes.find(
+      (route) => route.nameRoute === selectedRoute
+    );
+
+    if (selectedRoutes) {
+      const customer = selectedRoutes.accounts;
+      set({ customers: customer.sort((a, b) => a.drop - b.drop) });
+    } else {
+      set({ customers: [] });
+    }
+    set({ isLoading: false });
   },
-  setRoutesByDate: async (token, date, selectedRoute) => {
+  setRoutesByDate: async (token, date) => {
     try {
       set({ isLoading: true });
 
@@ -22,22 +34,8 @@ export const useCustomersStore = create((set) => ({
         }
       );
 
-      let RoutesByDate = await response.data.routes;
-      RoutesByDate.sort((a, b) => {
-        return a.nameRoute.localeCompare(b.nameRoute);
-      });
-
-      const selectedRoutes = RoutesByDate.find(
-        (route) => route.nameRoute === selectedRoute
-      );
-
-      if (selectedRoutes) {
-        const customer = selectedRoutes.accounts;
-        set({ customers: customer.sort((a, b) => a.drop - b.drop) });
-      } else {
-        set({ customers: [] });
-      }
-
+      let routesByDate = await response.data.routes;
+      set({ routes: routesByDate });
       set({ isLoading: false });
     } catch (error) {
       set({ isLoading: false });

@@ -1,36 +1,40 @@
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback } from 'react'
-import { ActivityIndicator, SafeAreaView, ScrollView, Text, View } from 'react-native'
-import { BtnCloseSession } from '../../components/BtnCloseSession'
+import React, { useCallback, useState } from 'react'
+import { ActivityIndicator, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import CustomerCard from '../../components/CustomerCard'
 import { useCustomersStore } from '../../store/useCustomersStore'
 import useEmployeeStore from '../../store/useEmployeeStore'
 import useTokenStore from '../../store/useTokenStore'
 import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
+import ModalRoute from '../../components/ModalRoute'
+import { FontAwesome5 } from '@expo/vector-icons'
+import { colors } from '../../styles/GlobalStyles'
 
 export const CustomersPage = () => {
 
     const {
+        routes,
         customers,
         isLoading,
         setRoutesByDate,
         setCustomers,
     } = useCustomersStore()
 
-    const { selectedDate, selectedRoute } = useEmployeeStore()
-
+    const { selectedDate, setSelectedRoute, selectedRoute } = useEmployeeStore()
     const { token } = useTokenStore()
+    const [showModalRoute, setShowModalRoute] = useState(true);
 
     useFocusEffect(
         useCallback(() => {
-            setRoutesByDate(token, selectedDate, selectedRoute)
-            return () => {
-                setCustomers([])
-            }
-        }, [selectedDate, selectedRoute])
+            setRoutesByDate(token, selectedDate)
+        }, [selectedDate])
     )
 
-    // console.log('customers', JSON.stringify(customers, null, 2));
+    const selectRoute = (nameRoute) => {
+        setSelectedRoute(nameRoute)
+        setCustomers(routes, nameRoute)
+        setShowModalRoute(false)
+    }
 
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>
@@ -42,8 +46,14 @@ export const CustomersPage = () => {
             >
                 <View style={CustomerDayStyles.title2}>
                     <Text style={CustomerDayStyles.customerTitle}>
-                        {`Customer's`}
+                        {`Customer's`} - {selectedRoute}
                     </Text>
+                    <TouchableOpacity
+                        onPress={() => setShowModalRoute(true)}
+                        style={{ position: 'absolute', right: 20, top: 3 }}
+                    >
+                        <FontAwesome5 name="exchange-alt" size={24} color={colors.darkBlue} />
+                    </TouchableOpacity>
                 </View>
 
                 {!isLoading ? (
@@ -80,7 +90,13 @@ export const CustomersPage = () => {
                 )}
 
             </ScrollView>
-            {/* <BtnCloseSession color={colors.bluePrimary} /> */}
+            <ModalRoute
+                routes={routes}
+                showModal={showModalRoute}
+                selectRoute={selectRoute}
+                title={'Select a route'}
+                text={'Please select a route to view the customers.'}
+            />
         </SafeAreaView >
     )
 }
