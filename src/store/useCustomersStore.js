@@ -27,8 +27,6 @@ export const useCustomersStore = create((set) => ({
         return a.nameRoute.localeCompare(b.nameRoute);
       });
 
-      console.log('RoutesByDate', RoutesByDate);
-
       const selectedRoutes = RoutesByDate.find(
         (route) => route.nameRoute === selectedRoute
       );

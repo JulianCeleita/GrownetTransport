@@ -17,7 +17,7 @@ export const CustomerActions = ({ route }) => {
     const [showModalNotDelivered, setShowModalNotDelivered] = useState(false)
     const [showModalEvidence, setShowModalEvidence] = useState(false)
     const [evidence, setEvidence] = useState(null)
-    const [especialInstructions, setEspecialInstructions] = useState('Loading...')
+    const [especialInstructions, setEspecialInstructions] = useState()
     const [notes, setNotes] = useState('')
 
     const { getEspecialInstructions, handleSubmitCustomer } = useProductSubmit()
@@ -31,9 +31,8 @@ export const CustomerActions = ({ route }) => {
 
         if (showModalNotDelivered) {
             handleSubmitCustomer(customer.orders_reference, false, null, notes);
+            navigation.goBack()
         }
-
-        setShowModalNotDelivered(false)
     }
 
     const getEspecialInstruction = async () => {
