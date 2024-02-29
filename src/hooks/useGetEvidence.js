@@ -7,7 +7,6 @@ export const useGetEvidence = () => {
       allowsEditing: false,
       aspect: [4, 3],
       quality: 1,
-      //   base64: true,
     });
 
     if (!result.canceled) {
@@ -19,10 +18,9 @@ export const useGetEvidence = () => {
           fileName: result.assets[0].uri.split("/").pop(),
           fileType: result.assets[0].uri.match(/\.(\w+)$/)?.[1],
         };
+
         setEvidence(dataImage);
         handleClose();
-        // console.log(dataImage);
-        // console.log(result.assets[0].base64);
       }
     }
   };
@@ -40,7 +38,6 @@ export const useGetEvidence = () => {
       allowsEditing: false,
       aspect: [4, 3],
       quality: 1,
-      //   base64: true,
     });
 
     if (!result.canceled) {
@@ -54,8 +51,6 @@ export const useGetEvidence = () => {
         };
         setEvidence(dataImage);
         handleClose();
-        // console.log(dataImage);
-        // console.log(result.assets[0].base64);
       }
     }
   };
