@@ -78,7 +78,6 @@ export const ShortsVanPage = () => {
 
     return (
         <SafeAreaView style={ProductStyles.products}>
-            {/* <BtnCloseSession color={colors.bluePrimary} /> */}
             <View style={CustomerDayStyles.title2}>
                 <View>
                     <Text style={CustomerDayStyles.customerTitle}>
@@ -132,25 +131,38 @@ export const ShortsVanPage = () => {
                         </View>
                     ) : (
                         <View>
-                            {shortVanProducts.map((restaurant) => (
-                                restaurant.products.length > 0 && (
-                                    <View key={restaurant.customerName}>
-                                        <Text style={[CustomerDayStyles.restaurantTypeTitle]}>
-                                            {restaurant.customerName}
-                                        </Text>
-                                        <View>
-                                            {restaurant.products.map((product, index) => (
-                                                <ProductsCardShortsVan
-                                                    key={index}
-                                                    item={product}
-                                                    handleSubmit={handleSubmit}
-                                                    updateProductsVan={updateProductsVan}
-                                                />
-                                            ))}
+                            {shortVanProducts.length === 0 ? (
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        paddingTop: 40,
+                                    }}
+                                >
+                                    <Text style={CustomerDayStyles.textCustomer}>There are no products to show.</Text>
+                                </View>
+                            ) : (
+                                shortVanProducts.map((restaurant) => (
+                                    restaurant.products.length > 0 && (
+                                        <View key={restaurant.customerName}>
+                                            <Text style={[CustomerDayStyles.restaurantTypeTitle]}>
+                                                {restaurant.customerName}
+                                            </Text>
+                                            <View>
+                                                {restaurant.products.map((product, index) => (
+                                                    <ProductsCardShortsVan
+                                                        key={index}
+                                                        item={product}
+                                                        handleSubmit={handleSubmit}
+                                                        updateProductsVan={updateProductsVan}
+                                                    />
+                                                ))}
+                                            </View>
                                         </View>
-                                    </View>
-                                )
-                            ))}
+                                    )
+                                ))
+                            )}
                         </View>
                     )}
                 </ScrollView>

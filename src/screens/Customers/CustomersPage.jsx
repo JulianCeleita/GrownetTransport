@@ -47,13 +47,25 @@ export const CustomersPage = () => {
                 </View>
 
                 {!isLoading ? (
-
-                    customers.map((customer, index) => (
-                        <View key={index} style={{ flex: 1, alignItems: 'center' }}>
-                            <CustomerCard customer={customer} />
+                    customers.length === 0 ? (
+                        <View
+                            style={{
+                                flex: 1,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                paddingTop: 40,
+                            }}
+                        >
+                            <Text style={CustomerDayStyles.textCustomer}>There are no customers to show.</Text>
+                            <Text style={CustomerDayStyles.textCustomer}>Please contact the route manager.</Text>
                         </View>
-                    ))
-
+                    ) : (
+                        customers.map((customer, index) => (
+                            <View key={index} style={{ flex: 1, alignItems: 'center' }}>
+                                <CustomerCard customer={customer} />
+                            </View>
+                        ))
+                    )
                 ) : (
                     <View
                         style={{
