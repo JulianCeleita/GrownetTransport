@@ -22,7 +22,7 @@ export const CustomerActions = ({ route }) => {
 
     const { getEspecialInstructions, handleSubmitCustomer } = useProductSubmit()
 
-    const confirm = () => {
+    const confirm = async () => {
         if (showModalDelivered) {
             setShowModalDelivered(false)
             handleSubmitCustomer(customer.orders_reference, true, null);
@@ -30,8 +30,8 @@ export const CustomerActions = ({ route }) => {
         }
 
         if (showModalNotDelivered) {
-            handleSubmitCustomer(customer.orders_reference, false, null, notes);
-            navigation.goBack()
+            await handleSubmitCustomer(customer.orders_reference, false, null, notes);
+            handleClose();
         }
     }
 
@@ -54,6 +54,21 @@ export const CustomerActions = ({ route }) => {
     useEffect(() => {
         getEspecialInstruction()
     }, []);
+
+    const handleClose = () => {
+
+        if (showModalDelivered) {
+            setShowModalDelivered(false);
+        }
+
+        if (showModalEvidence) {
+            navigation.goBack();
+        }
+
+        if (showModalNotDelivered) {
+            navigation.goBack();
+        }
+    }
 
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>
@@ -102,29 +117,29 @@ export const CustomerActions = ({ route }) => {
 
             <ModalProduct
                 showModal={showModalDelivered}
-                setShowModal={setShowModalDelivered}
                 confirm={confirm}
                 title={`Order: ${customer.orders_reference}`}
                 text={`¿Are you sure you want to mark this order as delivered?`}
+                handleClose={handleClose}
             />
 
             <ModalProduct
                 showModal={showModalNotDelivered}
-                setShowModal={setShowModalNotDelivered}
                 confirm={confirm}
                 title={`Order: ${customer.orders_reference}`}
                 text={`¿Are you sure you want to mark this order as not delivered?`}
                 setNotes={setNotes}
+                handleClose={handleClose}
             />
 
             <ModalProduct
                 showModal={showModalEvidence}
-                setShowModal={setShowModalEvidence}
                 confirm={confirm}
                 title={`Order: ${customer.orders_reference}`}
                 text={`Select evidence to add to order.`}
                 modalEvidence
                 setEvidence={setEvidence}
+                handleClose={handleClose}
             />
 
         </SafeAreaView>

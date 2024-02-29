@@ -14,24 +14,16 @@ import { useGetEvidence } from '../hooks/useGetEvidence'
 
 const ModalProduct = ({
   showModal,
-  setShowModal,
   confirm,
-  setStateCardDefault = null,
   title,
   text,
   modalEvidence = null,
   setEvidence = null,
   setNotes = null,
+  handleClose
 }) => {
 
   const { pickImageFromGallery, pickImageFromCamera } = useGetEvidence();
-
-  const handleClose = () => {
-    if (setStateCardDefault) {
-      setStateCardDefault()
-    }
-    setShowModal(false)
-  }
 
   return (
     <Modal
