@@ -48,7 +48,7 @@ export const useProductSubmit = (insert) => {
     }
 
     formData.append('delivered', delivered);
-    formData.append('notes', notes);
+    formData.append('notes_delivery', notes);
 
     try {
       const response = await mainAxios.post(`${setDelivered}${itemId}`, formData,
@@ -60,14 +60,11 @@ export const useProductSubmit = (insert) => {
         }
       );
 
-      if (response.status === 200) {
-        console.log("Datos enviados correctamente", response.data);
-      } else {
-        throw new Error("Error al enviar los datos");
-      }
+      return { status: true, message: response.data };
+
     } catch (error) {
-      console.error("Hubo un error al enviar los datos: ", error);
-      throw error;
+      console.error("There was an error sending the data: ", error);
+      return { status: false, message: error };
     }
   };
 

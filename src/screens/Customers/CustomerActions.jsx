@@ -8,29 +8,35 @@ import ModalProduct from '../../components/ModalProduct'
 import { useNavigation } from '@react-navigation/native'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useProductSubmit } from '../../hooks/useProductSubmit'
+import ModalMessage from '../../components/ModalMessage'
 
 export const CustomerActions = ({ route }) => {
 
     const { customer } = route.params
     const navigation = useNavigation()
     const [showModalDelivered, setShowModalDelivered] = useState(false)
-    const [showModalNotDelivered, setShowModalNotDelivered] = useState(false)
     const [showModalEvidence, setShowModalEvidence] = useState(false)
+    const [showModalNotDelivered, setShowModalNotDelivered] = useState(false)
+    const [showModalMessage, setShowModalMessage] = useState({ show: false, message: '' })
     const [evidence, setEvidence] = useState(null)
     const [especialInstructions, setEspecialInstructions] = useState()
     const [notes, setNotes] = useState('')
+    const [statusCustomer, setStatusCustomer] = useState(null)
 
     const { getEspecialInstructions, handleSubmitCustomer } = useProductSubmit()
 
     const confirm = async () => {
         if (showModalDelivered) {
             setShowModalDelivered(false)
-            handleSubmitCustomer(customer.orders_reference, true, null);
+            await handleSubmitCustomer(customer.orders_reference, true, null, null);
+            setStatusCustomer('delivered')
             setShowModalEvidence(true)
         }
 
         if (showModalNotDelivered) {
-            await handleSubmitCustomer(customer.orders_reference, false, null, notes);
+            const { status, message } = await handleSubmitCustomer(customer.orders_reference, false, null, notes);
+            setShowModalMessage({ show: status, message: message })
+            setStatusCustomer('notDelivered')
             handleClose();
         }
     }
@@ -44,11 +50,16 @@ export const CustomerActions = ({ route }) => {
         }
     }
 
-    useEffect(() => {
+    const submitEvidence = async () => {
         if (evidence !== null) {
-            handleSubmitCustomer(customer.orders_reference, null, evidence);
+            const { status, message } = await handleSubmitCustomer(customer.orders_reference, null, evidence, null);
+            setShowModalMessage({ show: status, message: message })
             setEvidence(null)
         }
+    }
+
+    useEffect(() => {
+        submitEvidence()
     }, [evidence]);
 
     useEffect(() => {
@@ -62,11 +73,11 @@ export const CustomerActions = ({ route }) => {
         }
 
         if (showModalEvidence) {
-            navigation.goBack();
+            setShowModalEvidence(false)
         }
 
         if (showModalNotDelivered) {
-            navigation.goBack();
+            setShowModalNotDelivered(false);
         }
     }
 
@@ -82,16 +93,52 @@ export const CustomerActions = ({ route }) => {
                 <Text style={ProductStyles.tittleCard}>Order: {customer.orders_reference}</Text>
             </View>
             <View style={CustomerDayStyles.actionsContainer}>
+
                 <TouchableOpacity
-                    onPress={() => setShowModalDelivered(true)}
+                    onPress={() => navigation.navigate('ProductsPage', { customer })}
                     style={[
                         ProductStyles.card,
                         GlobalStyles.boxShadow,
                         { justifyContent: 'center', alignItems: 'center' }
                     ]}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <MaterialIcons style={{ marginRight: 10 }} name="check" size={35} color={colors.darkBlue} />
-                        <Text style={ProductStyles.tittleCard}>Delivered</Text>
+                        <MaterialIcons style={{ marginRight: 10 }} name="list" size={35} color={colors.darkBlue} />
+                        <Text style={ProductStyles.tittleCard}>Products</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => setShowModalDelivered(true)}
+                    style={[
+                        ProductStyles.card,
+                        GlobalStyles.boxShadow,
+                        {
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: customer.delivered === true
+                                ? colors.green
+                                : statusCustomer === 'delivered'
+                                    ? colors.green
+                                    : 'white'
+                        }
+                    ]}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <MaterialIcons style={{ marginRight: 10 }} name="check" size={35} color={
+                            customer.delivered === true
+                                ? 'white'
+                                : statusCustomer === 'delivered'
+                                    ? 'white'
+                                    : colors.darkBlue
+                        } />
+                        <Text style={[ProductStyles.tittleCard, {
+                            color: customer.delivered === true
+                                ? 'white'
+                                : statusCustomer === 'delivered'
+                                    ? 'white'
+                                    : colors.darkBlue
+                        }]}>
+                            Delivered
+                        </Text>
                     </View>
                 </TouchableOpacity>
 
@@ -100,10 +147,32 @@ export const CustomerActions = ({ route }) => {
                     style={[
                         ProductStyles.card,
                         GlobalStyles.boxShadow,
-                        { justifyContent: 'center', alignItems: 'center' }
+                        {
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: customer.delivered === false
+                                ? colors.danger
+                                : statusCustomer === 'notDelivered'
+                                    ? colors.danger
+                                    : 'white'
+                        }
                     ]}>
-                    <MaterialIcons style={{ marginRight: 10 }} name="clear" size={35} color={colors.darkBlue} />
-                    <Text style={ProductStyles.tittleCard}>Problems with my delivery</Text>
+                    <MaterialIcons style={{ marginRight: 10 }} name="clear" size={35} color={
+                        customer.delivered === false
+                            ? 'white'
+                            : statusCustomer === 'notDelivered'
+                                ? 'white'
+                                : colors.darkBlue
+                    } />
+                    <Text style={[ProductStyles.tittleCard, {
+                        color: customer.delivered === false
+                            ? 'white'
+                            : statusCustomer === 'notDelivered'
+                                ? 'white'
+                                : colors.darkBlue
+                    }]}>
+                        Problems with my delivery
+                    </Text>
                 </TouchableOpacity>
 
                 {especialInstructions ? (
@@ -140,6 +209,13 @@ export const CustomerActions = ({ route }) => {
                 modalEvidence
                 setEvidence={setEvidence}
                 handleClose={handleClose}
+            />
+
+            <ModalMessage
+                showModal={showModalMessage.show}
+                setShowModal={setShowModalMessage}
+                title={`Order: ${customer.orders_reference}`}
+                text="The order has been updated successfully"
             />
 
         </SafeAreaView>
