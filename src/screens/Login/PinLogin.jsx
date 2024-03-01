@@ -74,6 +74,7 @@ const PinLogin = () => {
           // setSelectedRoute("R4")
           // setSelectedDate('2024-02-27');
           setSelectedDate(new Date().toISOString().slice(0, 10));
+          console.log(response.data, null, 2);
           setEmployeeToken(response.data.token)
           setLoading(false)
         } else {
