@@ -3,39 +3,48 @@ import mainAxios from "../../axios.config";
 import { deliveryRoutes } from "../config/urls.config";
 
 export const useCustomersStore = create((set) => ({
-  routes: [],
   customers: [],
   isLoading: false,
-  setCustomers: (routes, selectedRoute) => {
-    set({ isLoading: true });
-    const selectedRoutes = routes.find(
-      (route) => route.nameRoute === selectedRoute
-    );
-
-    if (selectedRoutes) {
-      const customer = selectedRoutes.accounts;
-      set({ customers: customer.sort((a, b) => a.drop - b.drop) });
-    } else {
-      set({ customers: [] });
-    }
-    set({ isLoading: false });
+  error: null,
+  setCustomers: (customers) => {
+    set({ customers: customers });
   },
-  setRoutesByDate: async (token, date) => {
-    try {
-      set({ isLoading: true });
+  setFetchCustomers: async (employeeToken, date, selectedRoute) => {
+    set({ isLoading: true });
 
+    if (selectedRoute === null || selectedRoute === undefined) {
+      set({
+        customers: [],
+        error: `User without route assigned for date: ${date}`,
+        isLoading: false
+      });
+      return;
+    }
+
+    try {
       const response = await mainAxios.post(
         deliveryRoutes,
         { date },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${employeeToken}`,
           },
         }
       );
 
       let routesByDate = await response.data.routes;
-      set({ routes: routesByDate });
+
+      const selectedRoutes = routesByDate.find(
+        (route) => route.nameRoute === selectedRoute
+      );
+
+      if (selectedRoutes) {
+        const customer = selectedRoutes.accounts;
+        set({ customers: customer.sort((a, b) => a.drop - b.drop) });
+      } else {
+        set({ customers: [] });
+      }
+
       set({ isLoading: false });
     } catch (error) {
       set({ isLoading: false });
