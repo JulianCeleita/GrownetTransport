@@ -95,6 +95,7 @@ export const CustomerActions = ({ route }) => {
             <View style={CustomerDayStyles.actionsContainer}>
 
                 <TouchableOpacity
+                    disabled={statusCustomer !== null}
                     onPress={() => navigation.navigate('ProductsPage', { customer })}
                     style={[
                         ProductStyles.card,
