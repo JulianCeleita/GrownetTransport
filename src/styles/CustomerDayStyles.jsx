@@ -72,14 +72,15 @@ export const CustomerDayStyles = StyleSheet.create({
     margin: 8,
     marginBottom: 2,
     marginTop: 10,
-    width: 320,
-    height: 90,
+    width: 345,
+    height: 100,
   },
   iconCustomer: {
+    width: 'auto',
     marginHorizontal: 10,
   },
   cardText: {
-    width: '70%',
+    width: '55%',
     justifyContent: 'flex-start',
     textAlign: 'left',
   },
@@ -87,6 +88,8 @@ export const CustomerDayStyles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'PoppinsSemi',
     color: colors.darkBlue,
+    width: '100%', // Asegúrate de que el texto no se desborde
+    overflow: 'hidden', // Esconde el texto que se desborde
   },
   textCustomer: {
     fontSize: 15,
