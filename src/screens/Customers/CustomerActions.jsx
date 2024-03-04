@@ -21,7 +21,7 @@ export const CustomerActions = ({ route }) => {
     const [evidence, setEvidence] = useState(null)
     const [especialInstructions, setEspecialInstructions] = useState()
     const [notes, setNotes] = useState('')
-    const [statusCustomer, setStatusCustomer] = useState(null)
+    const [statusCustomer, setStatusCustomer] = useState(customer.delivered)
 
     const { getEspecialInstructions, handleSubmitCustomer } = useProductSubmit()
 
@@ -29,14 +29,14 @@ export const CustomerActions = ({ route }) => {
         if (showModalDelivered) {
             setShowModalDelivered(false)
             await handleSubmitCustomer(customer.orders_reference, true, null, null);
-            setStatusCustomer('delivered')
+            setStatusCustomer(true)
             setShowModalEvidence(true)
         }
 
         if (showModalNotDelivered) {
             const { status, message } = await handleSubmitCustomer(customer.orders_reference, false, null, notes);
             setShowModalMessage({ show: status, message: message })
-            setStatusCustomer('notDelivered')
+            setStatusCustomer(false)
             handleClose();
         }
     }
@@ -108,6 +108,7 @@ export const CustomerActions = ({ route }) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
+                    disabled={statusCustomer === true}
                     onPress={() => setShowModalDelivered(true)}
                     style={[
                         ProductStyles.card,
@@ -115,27 +116,15 @@ export const CustomerActions = ({ route }) => {
                         {
                             justifyContent: 'center',
                             alignItems: 'center',
-                            backgroundColor: customer.delivered === true
-                                ? colors.green
-                                : statusCustomer === 'delivered'
-                                    ? colors.green
-                                    : 'white'
+                            backgroundColor: statusCustomer === true ? colors.green : 'white'
                         }
                     ]}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <MaterialIcons style={{ marginRight: 10 }} name="check" size={35} color={
-                            customer.delivered === true
-                                ? 'white'
-                                : statusCustomer === 'delivered'
-                                    ? 'white'
-                                    : colors.darkBlue
+                            statusCustomer === true ? 'white' : colors.darkBlue
                         } />
                         <Text style={[ProductStyles.tittleCard, {
-                            color: customer.delivered === true
-                                ? 'white'
-                                : statusCustomer === 'delivered'
-                                    ? 'white'
-                                    : colors.darkBlue
+                            color: statusCustomer === true ? 'white' : colors.darkBlue
                         }]}>
                             Delivered
                         </Text>
@@ -143,6 +132,7 @@ export const CustomerActions = ({ route }) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
+                    disabled={statusCustomer === false}
                     onPress={() => setShowModalNotDelivered(true)}
                     style={[
                         ProductStyles.card,
@@ -150,26 +140,14 @@ export const CustomerActions = ({ route }) => {
                         {
                             justifyContent: 'center',
                             alignItems: 'center',
-                            backgroundColor: customer.delivered === false
-                                ? colors.danger
-                                : statusCustomer === 'notDelivered'
-                                    ? colors.danger
-                                    : 'white'
+                            backgroundColor: statusCustomer === false ? colors.danger : 'white'
                         }
                     ]}>
                     <MaterialIcons style={{ marginRight: 10 }} name="clear" size={35} color={
-                        customer.delivered === false
-                            ? 'white'
-                            : statusCustomer === 'notDelivered'
-                                ? 'white'
-                                : colors.darkBlue
+                        statusCustomer === false ? 'white' : colors.darkBlue
                     } />
                     <Text style={[ProductStyles.tittleCard, {
-                        color: customer.delivered === false
-                            ? 'white'
-                            : statusCustomer === 'notDelivered'
-                                ? 'white'
-                                : colors.darkBlue
+                        color: statusCustomer === false ? 'white' : colors.darkBlue
                     }]}>
                         Problems with my delivery
                     </Text>

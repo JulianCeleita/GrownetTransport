@@ -9,6 +9,7 @@ export const useProductsStore = create((set) => ({
         set({ products: products })
     },
     setFetchProducts: async (token, orderNumber) => {
+        console.log({ token, orderNumber });
         set({ isLoading: true });
         try {
             const resp = await mainAxios.get(`${productsLoading}${orderNumber}`,
@@ -19,7 +20,7 @@ export const useProductsStore = create((set) => ({
                 },
             )
             const products = await resp.data;
-            // console.log('products', products);
+            console.log('products', JSON.stringify(products, null, 2));
             set({ products: products.orders[0] })
             set({ isLoading: false });
         } catch (error) {

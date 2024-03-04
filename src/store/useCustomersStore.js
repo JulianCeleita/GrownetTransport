@@ -40,6 +40,7 @@ export const useCustomersStore = create((set) => ({
 
       if (selectedRoutes) {
         const customer = selectedRoutes.accounts;
+        console.log("customer", JSON.stringify(customer, null, 2));
         set({ customers: customer.sort((a, b) => a.drop - b.drop) });
       } else {
         set({ customers: [] });
