@@ -1,14 +1,14 @@
+import { MaterialIcons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Platform, SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
-import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
 import { BtnGoBack } from '../../components/BtnGoBack'
+import ModalMessage from '../../components/ModalMessage'
+import ModalProduct from '../../components/ModalProduct'
+import { useProductSubmit } from '../../hooks/useProductSubmit'
+import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
 import { GlobalStyles, colors } from '../../styles/GlobalStyles'
 import { ProductStyles } from '../../styles/ProductStyles'
-import ModalProduct from '../../components/ModalProduct'
-import { useNavigation } from '@react-navigation/native'
-import { MaterialIcons } from '@expo/vector-icons'
-import { useProductSubmit } from '../../hooks/useProductSubmit'
-import ModalMessage from '../../components/ModalMessage'
 
 export const CustomerActions = ({ route }) => {
 

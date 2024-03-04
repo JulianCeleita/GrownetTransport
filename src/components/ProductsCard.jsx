@@ -15,7 +15,6 @@ export function ProductsCard({
 
   if (isNA) {
     backColor = colors.bluePrimary;
-    iconName = '';
   }
 
   if (item.state_definitive === 'FULL') {
@@ -61,24 +60,18 @@ export function ProductsCard({
                   },
                 ]}
               >
-                {item.name} - {item.uom}
+                {item.name} {item.uom}
               </Text>
             )}
             <View style={ProductStyles.qty}>
               <Text style={ProductStyles.textCard}>
                 Qty: {item.quantity}
+                {item.quantity_loading > 0 && isNA !== 'N/A' ? (
+                  <>
+                    {' - '}L: {item.quantity_loading}
+                  </>
+                ) : null}
               </Text>
-              {item.quantity_loading > 0 ? (
-                <>
-                  <Text>
-                    -
-                  </Text>
-                  <Text style={ProductStyles.textCard}>
-                    L: {item.quantity_loading}
-                  </Text>
-                </>
-              ) : null}
-
             </View>
           </View>
           <View style={[ProductStyles.checkBox, {
