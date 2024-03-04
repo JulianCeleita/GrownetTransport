@@ -12,7 +12,6 @@ const useEmployeeStore = create((set) => ({
   },
   setEmployeeToken: (newToken) => {
     set({ employeeToken: newToken });
-    console.log("Token de empleado guardado:", newToken);
   },
 }));
 
