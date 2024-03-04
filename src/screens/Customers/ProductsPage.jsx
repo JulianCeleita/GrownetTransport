@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from 'react'
-import { ActivityIndicator, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import useEmployeeStore from '../../store/useEmployeeStore';
+import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
-import { useProductsStore } from '../../store/useProductsStore';
-import { ProductStyles, SearchStyles } from '../../styles/ProductStyles';
-import { ProductsCard } from '../../components/ProductsCard';
+import React, { useCallback, useState } from 'react';
+import { ActivityIndicator, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { BtnGoBack } from '../../components/BtnGoBack';
-import { colors } from '../../styles/GlobalStyles';
-import { CustomerDayStyles } from '../../styles/CustomerDayStyles';
-import { Ionicons } from '@expo/vector-icons'
 import ProductSearcher from '../../components/ProductSearch';
+import { ProductsCard } from '../../components/ProductsCard';
+import useEmployeeStore from '../../store/useEmployeeStore';
+import { useProductsStore } from '../../store/useProductsStore';
+import { CustomerDayStyles } from '../../styles/CustomerDayStyles';
+import { colors } from '../../styles/GlobalStyles';
+import { ProductStyles } from '../../styles/ProductStyles';
 
 export const ProductsPage = ({ route }) => {
 
