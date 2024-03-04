@@ -19,6 +19,7 @@ import useEmployeeStore from '../store/useEmployeeStore'
 import useTokenStore from '../store/useTokenStore'
 import { colors } from '../styles/GlobalStyles'
 import { ShortsVanPage } from '../screens/ShortsVan/ShortsVanPage'
+import { ProductsPage } from '../screens/Customers/ProductsPage'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -31,6 +32,7 @@ function StackCustomers() {
     >
       <Stack.Screen name="CustomersPage" component={CustomersPage} />
       <Stack.Screen name="CustomerActions" component={CustomerActions} />
+      <Stack.Screen name="ProductsPage" component={ProductsPage} />
     </Stack.Navigator>
   )
 }

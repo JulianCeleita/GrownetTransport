@@ -1,40 +1,29 @@
 import { useFocusEffect } from '@react-navigation/native'
-import React, { useCallback, useState } from 'react'
-import { ActivityIndicator, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import React, { useCallback } from 'react'
+import { ActivityIndicator, SafeAreaView, ScrollView, Text, View } from 'react-native'
 import CustomerCard from '../../components/CustomerCard'
 import { useCustomersStore } from '../../store/useCustomersStore'
 import useEmployeeStore from '../../store/useEmployeeStore'
-import useTokenStore from '../../store/useTokenStore'
 import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
-import ModalRoute from '../../components/ModalRoute'
-import { FontAwesome5 } from '@expo/vector-icons'
-import { colors } from '../../styles/GlobalStyles'
 
 export const CustomersPage = () => {
 
     const {
-        routes,
         customers,
         isLoading,
-        setRoutesByDate,
+        setFetchCustomers,
         setCustomers,
+        error,
     } = useCustomersStore()
 
-    const { selectedDate, setSelectedRoute, selectedRoute } = useEmployeeStore()
-    const { token } = useTokenStore()
-    const [showModalRoute, setShowModalRoute] = useState(true);
+    const { selectedDate, selectedRoute, employeeToken } = useEmployeeStore()
 
     useFocusEffect(
         useCallback(() => {
-            setRoutesByDate(token, selectedDate)
-        }, [selectedDate])
+            setFetchCustomers(employeeToken, selectedDate, selectedRoute)
+            return () => setCustomers([])
+        }, [selectedDate, selectedRoute])
     )
-
-    const selectRoute = (nameRoute) => {
-        setSelectedRoute(nameRoute)
-        setCustomers(routes, nameRoute)
-        setShowModalRoute(false)
-    }
 
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>
@@ -48,16 +37,10 @@ export const CustomersPage = () => {
                     <Text style={CustomerDayStyles.customerTitle}>
                         {`Customer's`} - {selectedRoute}
                     </Text>
-                    <TouchableOpacity
-                        onPress={() => setShowModalRoute(true)}
-                        style={{ position: 'absolute', right: 20, top: 3 }}
-                    >
-                        <FontAwesome5 name="exchange-alt" size={24} color={colors.darkBlue} />
-                    </TouchableOpacity>
                 </View>
 
                 {!isLoading ? (
-                    customers.length === 0 ? (
+                    customers.length === 0 && !error ? (
                         <View
                             style={{
                                 flex: 1,
@@ -67,6 +50,18 @@ export const CustomersPage = () => {
                             }}
                         >
                             <Text style={CustomerDayStyles.textCustomer}>There are no customers to show.</Text>
+                            <Text style={CustomerDayStyles.textCustomer}>Please contact the route manager.</Text>
+                        </View>
+                    ) : error ? (
+                        <View
+                            style={{
+                                flex: 1,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                paddingTop: 40,
+                            }}
+                        >
+                            <Text style={CustomerDayStyles.textCustomer}>{error}</Text>
                             <Text style={CustomerDayStyles.textCustomer}>Please contact the route manager.</Text>
                         </View>
                     ) : (
@@ -90,13 +85,6 @@ export const CustomersPage = () => {
                 )}
 
             </ScrollView>
-            <ModalRoute
-                routes={routes}
-                showModal={showModalRoute}
-                selectRoute={selectRoute}
-                title={'Select a route'}
-                text={'Please select a route to view the customers.'}
-            />
         </SafeAreaView >
     )
 }

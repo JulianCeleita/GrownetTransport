@@ -15,9 +15,9 @@ import NumericKeyboard from '../../components/numericKeyboard'
 import { loginEmployee } from '../../config/urls.config'
 import logo from '../../img/Logo_Blanco.png'
 import useEmployeeStore from '../../store/useEmployeeStore'
+import useTokenStore from '../../store/useTokenStore'
 import { colors } from '../../styles/GlobalStyles'
 import { LoginStyles, PinNumericStyle } from '../../styles/LoginStyles'
-import useTokenStore from '../../store/useTokenStore'
 
 const PinLogin = () => {
   const [pin, setPin] = useState('')
@@ -70,9 +70,12 @@ const PinLogin = () => {
       .post(loginEmployee, requestData)
       .then((response) => {
         if (response.data.status === 200) {
-          // TODO: Cambiar la ruta cuando llegue asignada al usuario logueado         
-          // setSelectedRoute("R4")
-          // setSelectedDate('2024-02-27');
+          console.log('response', JSON.stringify(response.data, null, 2));
+          let routeName = null
+          if (response.data.route && response.data.route.name) {
+            routeName = response.data.route.name
+          }
+          setSelectedRoute(routeName)
           setSelectedDate(new Date().toISOString().slice(0, 10));
           setEmployeeToken(response.data.token)
           setLoading(false)
