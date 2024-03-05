@@ -163,7 +163,7 @@ export const CustomerDayStyles = StyleSheet.create({
     margin: 10,
     padding: 10,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   titleActionContainer: {
     flex: 0.2,

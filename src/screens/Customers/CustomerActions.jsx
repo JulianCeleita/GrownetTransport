@@ -95,6 +95,19 @@ export const CustomerActions = ({ route }) => {
             <View style={CustomerDayStyles.actionsContainer}>
 
                 <TouchableOpacity
+                    // onPress={() => navigation.navigate('ProductsPage', { customer })}
+                    style={[
+                        ProductStyles.card,
+                        GlobalStyles.boxShadow,
+                        { justifyContent: 'center', alignItems: 'center' }
+                    ]}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <MaterialIcons style={{ marginRight: 10 }} name="file-download" size={35} color={colors.darkBlue} />
+                        <Text style={ProductStyles.tittleCard}>Download PDF</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
                     onPress={() => navigation.navigate('ProductsPage', { customer })}
                     style={[
                         ProductStyles.card,

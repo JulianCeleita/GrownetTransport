@@ -6,3 +6,4 @@ export const insertShort = process.env.EXPO_PUBLIC_SHORT_INSERT;
 export const setDelivered = process.env.EXPO_PUBLIC_ORDER_INSERT;
 export const instructions = process.env.EXPO_PUBLIC_INSTRUCTIONS;
 export const productsLoading = process.env.EXPO_PUBLIC_PRODUCTS_LOADING;
+export const getPDForder = process.env.EXPO_PUBLIC_PDF_ORDER;
