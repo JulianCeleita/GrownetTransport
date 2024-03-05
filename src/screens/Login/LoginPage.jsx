@@ -16,6 +16,7 @@ import { login } from '../../config/urls.config';
 import logo from '../../img/Logo_Blanco.png';
 import useTokenStore from '../../store/useTokenStore';
 import { LoginStyles } from '../../styles/LoginStyles';
+import ModalLogin from '../../components/ModalLogin';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('')
@@ -25,6 +26,8 @@ const LoginPage = () => {
   const [showEmptyInputModal, setShowEmptyInputModal] = useState(false)
   const { setToken, setIdSupplier } = useTokenStore()
   const navigation = useNavigation()
+  const [showAccess, setShowAccess] = useState(false)
+  const [showTest, setShowTest] = useState(false)
 
   const handleSignIn = async () => {
     if (username === '' || password === '') {
@@ -105,6 +108,28 @@ const LoginPage = () => {
             <Text style={LoginStyles.signInButtonText}>Log in</Text>
           </TouchableOpacity>
         </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 100,
+            marginTop: 80,
+          }}
+        >
+          <TouchableOpacity
+            style={{ backgroundColor: 'white', padding: 10, borderRadius: 30 }}
+            onPress={() => setShowAccess(true)}
+          >
+            <Text style={{ color: '#026CD2' }}>Get access</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={{ backgroundColor: 'white', padding: 10, borderRadius: 30 }}
+            onPress={() => setShowTest(true)}
+          >
+            <Text style={{ color: '#026CD2' }}>Test app</Text>
+          </TouchableOpacity>
+        </View>
         <ModalAlert
           showModal={showModal}
           closeModal={closeModal}
@@ -120,6 +145,19 @@ const LoginPage = () => {
           Title="We apologize"
           message="Password and email cannot be empty."
           message2="Try again"
+        />
+        <ModalLogin
+          showModal={showAccess}
+          setShowModal={setShowAccess}
+          title="Get your access"
+          text="Contact us to get access to our application and enjoy all our benefits."
+          access
+        />
+        <ModalLogin
+          showModal={showTest}
+          setShowModal={setShowTest}
+          title="Test our app"
+          text="Try our application fully and enjoy the ease of making your deliveries:"
         />
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
