@@ -24,10 +24,12 @@ export const CustomerActions = ({ route }) => {
 
     const { getEspecialInstructions, handleSubmitCustomer } = useProductSubmit()
 
-    const confirm = async () => {
+    const confirmNotDelivered = async () => {
         const { status, message } = await handleSubmitCustomer(customer.orders_reference, false, null, notes);
         setShowModalMessage({ show: status, message: message })
-        setStatusCustomer(false)
+        if (status) {
+            setStatusCustomer(false)
+        }
         handleClose();
 
     }
@@ -45,6 +47,9 @@ export const CustomerActions = ({ route }) => {
         if (evidence !== null) {
             const { status, message } = await handleSubmitCustomer(customer.orders_reference, true, evidence, null);
             setShowModalMessage({ show: status, message: message })
+            if (status) {
+                setStatusCustomer(true)
+            }
             setEvidence(null)
         }
     }
@@ -149,22 +154,23 @@ export const CustomerActions = ({ route }) => {
             </View>
 
             <ModalProduct
-                showModal={showModalNotDelivered}
-                title={`Order: ${customer.orders_reference}`}
-                text={`¿Are you sure you want to mark this order as not delivered?`}
-                setNotes={setNotes}
-                handleClose={handleClose}
-            />
-
-            <ModalProduct
                 showModal={showModalEvidence}
-                confirm={confirm}
                 title={`Order: ${customer.orders_reference}`}
                 text={`Select evidence to add to order.`}
                 modalEvidence
                 setEvidence={setEvidence}
                 handleClose={handleClose}
             />
+
+            <ModalProduct
+                showModal={showModalNotDelivered}
+                confirmNotDelivered={confirmNotDelivered}
+                title={`Order: ${customer.orders_reference}`}
+                text={`¿Are you sure you want to mark this order as not delivered?`}
+                setNotes={setNotes}
+                handleClose={handleClose}
+            />
+
 
             <ModalMessage
                 showModal={showModalMessage.show}
