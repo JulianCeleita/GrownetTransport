@@ -14,7 +14,7 @@ import { useGetEvidence } from '../hooks/useGetEvidence'
 
 const ModalProduct = ({
   showModal,
-  confirm,
+  confirmNotDelivered,
   title,
   text,
   modalEvidence = null,
@@ -88,7 +88,7 @@ const ModalProduct = ({
 
                 {!modalEvidence ? (
                   <TouchableOpacity
-                    onPress={confirm}
+                    onPress={confirmNotDelivered}
                     style={[GlobalStyles.btnPrimary, ModalStyle.space]}
                   >
                     <Text style={GlobalStyles.textBtnSecundary}>Confirm</Text>
