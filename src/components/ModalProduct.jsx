@@ -14,7 +14,7 @@ import { useGetEvidence } from '../hooks/useGetEvidence'
 
 const ModalProduct = ({
   showModal,
-  confirm,
+  confirm = null,
   title,
   text,
   modalEvidence = null,

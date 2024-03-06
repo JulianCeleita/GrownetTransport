@@ -14,7 +14,6 @@ export const CustomerActions = ({ route }) => {
 
     const { customer } = route.params
     const navigation = useNavigation()
-    const [showModalDelivered, setShowModalDelivered] = useState(false)
     const [showModalEvidence, setShowModalEvidence] = useState(false)
     const [showModalNotDelivered, setShowModalNotDelivered] = useState(false)
     const [showModalMessage, setShowModalMessage] = useState({ show: false, message: '' })
@@ -26,19 +25,11 @@ export const CustomerActions = ({ route }) => {
     const { getEspecialInstructions, handleSubmitCustomer } = useProductSubmit()
 
     const confirm = async () => {
-        if (showModalDelivered) {
-            setShowModalDelivered(false)
-            await handleSubmitCustomer(customer.orders_reference, true, null, null);
-            setStatusCustomer(true)
-            setShowModalEvidence(true)
-        }
+        const { status, message } = await handleSubmitCustomer(customer.orders_reference, false, null, notes);
+        setShowModalMessage({ show: status, message: message })
+        setStatusCustomer(false)
+        handleClose();
 
-        if (showModalNotDelivered) {
-            const { status, message } = await handleSubmitCustomer(customer.orders_reference, false, null, notes);
-            setShowModalMessage({ show: status, message: message })
-            setStatusCustomer(false)
-            handleClose();
-        }
     }
 
     const getEspecialInstruction = async () => {
@@ -52,7 +43,7 @@ export const CustomerActions = ({ route }) => {
 
     const submitEvidence = async () => {
         if (evidence !== null) {
-            const { status, message } = await handleSubmitCustomer(customer.orders_reference, null, evidence, null);
+            const { status, message } = await handleSubmitCustomer(customer.orders_reference, true, evidence, null);
             setShowModalMessage({ show: status, message: message })
             setEvidence(null)
         }
@@ -67,11 +58,6 @@ export const CustomerActions = ({ route }) => {
     }, []);
 
     const handleClose = () => {
-
-        if (showModalDelivered) {
-            setShowModalDelivered(false);
-        }
-
         if (showModalEvidence) {
             setShowModalEvidence(false)
         }
@@ -95,19 +81,6 @@ export const CustomerActions = ({ route }) => {
             <View style={CustomerDayStyles.actionsContainer}>
 
                 <TouchableOpacity
-                    // onPress={() => navigation.navigate('ProductsPage', { customer })}
-                    style={[
-                        ProductStyles.card,
-                        GlobalStyles.boxShadow,
-                        { justifyContent: 'center', alignItems: 'center' }
-                    ]}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <MaterialIcons style={{ marginRight: 10 }} name="file-download" size={35} color={colors.darkBlue} />
-                        <Text style={ProductStyles.tittleCard}>Download PDF</Text>
-                    </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
                     onPress={() => navigation.navigate('ProductsPage', { customer })}
                     style={[
                         ProductStyles.card,
@@ -122,7 +95,7 @@ export const CustomerActions = ({ route }) => {
 
                 <TouchableOpacity
                     disabled={statusCustomer === true}
-                    onPress={() => setShowModalDelivered(true)}
+                    onPress={() => setShowModalEvidence(true)}
                     style={[
                         ProductStyles.card,
                         GlobalStyles.boxShadow,
@@ -176,16 +149,7 @@ export const CustomerActions = ({ route }) => {
             </View>
 
             <ModalProduct
-                showModal={showModalDelivered}
-                confirm={confirm}
-                title={`Order: ${customer.orders_reference}`}
-                text={`¿Are you sure you want to mark this order as delivered?`}
-                handleClose={handleClose}
-            />
-
-            <ModalProduct
                 showModal={showModalNotDelivered}
-                confirm={confirm}
                 title={`Order: ${customer.orders_reference}`}
                 text={`¿Are you sure you want to mark this order as not delivered?`}
                 setNotes={setNotes}
