@@ -68,7 +68,7 @@ export const useProductSubmit = (insert) => {
     }
   };
 
-  const getEspecialInstructions = async (itemId) => {
+  const getSpecialInstructions = async (itemId) => {
     try {
       const response = await mainAxios.get(`${instructions}${itemId}`, {
         headers: {
@@ -90,6 +90,6 @@ export const useProductSubmit = (insert) => {
   return {
     handleSubmit,
     handleSubmitCustomer,
-    getEspecialInstructions
+    getSpecialInstructions
   };
 };
