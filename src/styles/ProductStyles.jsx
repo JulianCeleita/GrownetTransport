@@ -129,6 +129,10 @@ export const ProductStyles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
   },
+  packingText: {
+    color: colors.gray,
+    fontSize: 13,
+  },
 })
 
 export const SearchStyles = StyleSheet.create({
