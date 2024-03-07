@@ -15,7 +15,8 @@
         "EXPO_PUBLIC_SHORT_INSERT": "/short/insert",
         "EXPO_PUBLIC_ORDER_INSERT": "/orders/setDelivered/",
         "EXPO_PUBLIC_INSTRUCTIONS": "/orders/especialInstructions/",
-        "EXPO_PUBLIC_PRODUCTS_LOADING": "/loading/"
+        "EXPO_PUBLIC_PRODUCTS_LOADING": "/loading/transport/",
+        "EXPO_PUBLIC_PDF_ORDER":"/invoice/generate"
       }
     },
     "preview": {
@@ -32,7 +33,8 @@
         "EXPO_PUBLIC_SHORT_INSERT": "/short/insert",
         "EXPO_PUBLIC_ORDER_INSERT": "/orders/setDelivered/",
         "EXPO_PUBLIC_INSTRUCTIONS": "/orders/especialInstructions/",
-        "EXPO_PUBLIC_PRODUCTS_LOADING": "/loading/"
+        "EXPO_PUBLIC_PRODUCTS_LOADING": "/loading/transport/",
+        "EXPO_PUBLIC_PDF_ORDER":"/invoice/generate"
       }
     },
     "production": {
@@ -45,7 +47,8 @@
         "EXPO_PUBLIC_SHORT_INSERT": "/short/insert",
         "EXPO_PUBLIC_ORDER_INSERT": "/orders/setDelivered/",
         "EXPO_PUBLIC_INSTRUCTIONS": "/orders/especialInstructions/",
-        "EXPO_PUBLIC_PRODUCTS_LOADING": "/loading/"
+        "EXPO_PUBLIC_PRODUCTS_LOADING": "/loading/transport/",
+        "EXPO_PUBLIC_PDF_ORDER":"/invoice/generate"
       }
     }
   },
