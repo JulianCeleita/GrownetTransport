@@ -32,6 +32,13 @@ export function ProductsCard({
     iconName = 'closecircleo';
   }
 
+  const isDecimal = (num) => {
+    if (num % 1 !== 0) {
+      return num.toFixed(1);
+    }
+    return num;
+  }
+
   return (
     <View style={{ alignItems: 'center' }} key={item.id}>
       <View>
@@ -63,15 +70,21 @@ export function ProductsCard({
                 {item.name} {item.uom}
               </Text>
             )}
-            <View style={ProductStyles.qty}>
+            <View style={{ flexDirection: 'row', gap: 10 }}>
               <Text style={ProductStyles.textCard}>
                 Qty: {item.quantity}
-                {item.quantity_loading > 0 && isNA !== 'N/A' ? (
-                  <>
-                    {' - '}L: {item.quantity_loading}
-                  </>
-                ) : null}
               </Text>
+              {item.quantity_definitive > 0 ? (
+                item.quantity_definitive > item.quantity ? (
+                  <Text style={[ProductStyles.textCard, { color: colors.green }]}>
+                    {'Overweight '} {isDecimal(item.quantity_definitive - item.quantity)}
+                  </Text>
+                ) : item.quantity_definitive < item.quantity ? (
+                  <Text style={[ProductStyles.textCard, { color: colors.danger }]}>
+                    {'Missing '} {isDecimal(item.quantity - item.quantity_definitive)}
+                  </Text>
+                ) : null
+              ) : null}
             </View>
           </View>
           <View style={[ProductStyles.checkBox, {
