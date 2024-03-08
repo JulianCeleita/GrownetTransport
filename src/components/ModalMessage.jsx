@@ -11,7 +11,7 @@ import { ModalStyle } from '../styles/ModalStyles'
 
 const ModalMessage = ({
     showModal,
-    setShowModal,
+    closeModalMessage,
     title,
     text,
 }) => {
@@ -30,7 +30,7 @@ const ModalMessage = ({
                         <Text style={[ModalStyle.modalText, { marginVertical: 10 }]}>{text}</Text>
                         <View style={[ModalStyle.buttons, { marginTop: 10 }]}>
                             <TouchableOpacity
-                                onPress={() => setShowModal({ show: false, message: '' })}
+                                onPress={() => closeModalMessage()}
                                 style={GlobalStyles.btnOutline}
                             >
                                 <Text style={GlobalStyles.textBtnOutline}>Close</Text>

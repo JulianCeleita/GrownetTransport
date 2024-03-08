@@ -72,6 +72,11 @@ export const CustomerActions = ({ route }) => {
         }
     }
 
+    const closeModalMessage = () => {
+        setShowModalMessage({ show: false, message: '' })
+        navigation.goBack();
+    }
+
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>
             <BtnGoBack color={colors.darkBlue} top={Platform.OS === 'ios' ? 60 : 15} />
@@ -174,7 +179,7 @@ export const CustomerActions = ({ route }) => {
 
             <ModalMessage
                 showModal={showModalMessage.show}
-                setShowModal={setShowModalMessage}
+                closeModalMessage={closeModalMessage}
                 title={`Order: ${customer.orders_reference}`}
                 text="The order has been updated successfully"
             />
