@@ -91,10 +91,18 @@ export const ProductsCardShortsVan = ({
   }
 
   const handleClose = () => {
-    setModalCard(false)
-    setShowModal(false)
-    setShowModalNA(false)
-    setShowModalRevertNA(false)
+    if (modalCard) {
+      setModalCard(false)
+    }
+    if (showModal) {
+      setShowModal(false)
+    }
+    if (showModalNA) {
+      setShowModalNA(false)
+    }
+    if (showModalRevertNA) {
+      setShowModalRevertNA(false)
+    }
   }
 
   useEffect(() => {
