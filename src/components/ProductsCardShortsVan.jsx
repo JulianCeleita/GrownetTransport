@@ -91,7 +91,18 @@ export const ProductsCardShortsVan = ({
   }
 
   const handleClose = () => {
-    setModalCard(false)
+    if (modalCard) {
+      setModalCard(false)
+    }
+    if (showModal) {
+      setShowModal(false)
+    }
+    if (showModalNA) {
+      setShowModalNA(false)
+    }
+    if (showModalRevertNA) {
+      setShowModalRevertNA(false)
+    }
   }
 
   useEffect(() => {
@@ -150,12 +161,17 @@ export const ProductsCardShortsVan = ({
   return (
     <View>
       <TouchableOpacity
+        disabled={item.id_stateOrders === 10}
         onPress={() => handlePress(item.id)}
         onLongPress={() => (isNA ? handleRevertNA() : handleDeclareNA())}
         delayLongPress={1000}
       >
         <PanGestureHandler
-          onGestureEvent={(e) => handleGestureEvent(e, item.id)}
+          onGestureEvent={(e) => {
+            if (item.id_stateOrders !== 10) {
+              handleGestureEvent(e, item.id)
+            }
+          }}
           activeOffsetX={[negativeOffset, positiveOffset]}
         >
           <View style={[ProductStyles.card, GlobalStyles.boxShadow]}>
@@ -290,6 +306,7 @@ export const ProductsCardShortsVan = ({
           setStateCardDefault={setStateCardDefault}
           title={item.name + ' will be marked as N/A'}
           text={' Are you sure you want to mark this item as N/A?'}
+          handleClose={handleClose}
         />
       ) : null}
       {showModalRevertNA ? (
@@ -300,6 +317,7 @@ export const ProductsCardShortsVan = ({
           setStateCardDefault={setStateCardDefault}
           title={item.name + ' will enable the product'}
           text={' Are you sure you enable this article?'}
+          handleClose={handleClose}
         />
       ) : null}
 
@@ -311,6 +329,7 @@ export const ProductsCardShortsVan = ({
           setStateCardDefault={setStateCardDefault}
           title={item.name + ' not available'}
           text={' Are you sure you want to mark this item as unavailable?'}
+          handleClose={handleClose}
         />
       ) : null}
     </View>

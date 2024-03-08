@@ -76,6 +76,8 @@ export const ShortsVanPage = () => {
         setToggle((previousToggle) => !previousToggle)
     }
 
+    console.log('shortVanProducts', JSON.stringify(shortVanProducts, null, 2));
+
     return (
         <SafeAreaView style={ProductStyles.products}>
             <View style={CustomerDayStyles.title2}>
