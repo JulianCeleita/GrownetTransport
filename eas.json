@@ -11,7 +11,12 @@
         "EXPO_PUBLIC_LOGIN": "/login/login",
         "EXPO_PUBLIC_LOGIN_EMPLOYEE": "/employees/login",
         "EXPO_PUBLIC_DELIVERY_ROUTES": "/deliveryRoutes/show",
-        "EXPO_PUBLIC_SHORT_VAN": "/short/van"
+        "EXPO_PUBLIC_SHORT_VAN": "/short/van",
+        "EXPO_PUBLIC_SHORT_INSERT": "/short/insert",
+        "EXPO_PUBLIC_ORDER_INSERT": "/orders/setDelivered/",
+        "EXPO_PUBLIC_INSTRUCTIONS": "/orders/especialInstructions/",
+        "EXPO_PUBLIC_PRODUCTS_TRANSPORT": "/loading/transport/",
+        "EXPO_PUBLIC_PDF_ORDER":"/invoice/generate"
       }
     },
     "preview": {
@@ -24,7 +29,12 @@
         "EXPO_PUBLIC_LOGIN": "/login/login",
         "EXPO_PUBLIC_LOGIN_EMPLOYEE": "/employees/login",
         "EXPO_PUBLIC_DELIVERY_ROUTES": "/deliveryRoutes/show",
-        "EXPO_PUBLIC_SHORT_VAN": "/short/van"
+        "EXPO_PUBLIC_SHORT_VAN": "/short/van",
+        "EXPO_PUBLIC_SHORT_INSERT": "/short/insert",
+        "EXPO_PUBLIC_ORDER_INSERT": "/orders/setDelivered/",
+        "EXPO_PUBLIC_INSTRUCTIONS": "/orders/especialInstructions/",
+        "EXPO_PUBLIC_PRODUCTS_TRANSPORT": "/loading/transport/",
+        "EXPO_PUBLIC_PDF_ORDER":"/invoice/generate"
       }
     },
     "production": {
@@ -33,7 +43,12 @@
         "EXPO_PUBLIC_LOGIN": "/login/login",
         "EXPO_PUBLIC_LOGIN_EMPLOYEE": "/employees/login",
         "EXPO_PUBLIC_DELIVERY_ROUTES": "/deliveryRoutes/show",
-        "EXPO_PUBLIC_SHORT_VAN": "/short/van"
+        "EXPO_PUBLIC_SHORT_VAN": "/short/van",
+        "EXPO_PUBLIC_SHORT_INSERT": "/short/insert",
+        "EXPO_PUBLIC_ORDER_INSERT": "/orders/setDelivered/",
+        "EXPO_PUBLIC_INSTRUCTIONS": "/orders/especialInstructions/",
+        "EXPO_PUBLIC_PRODUCTS_TRANSPORT": "/loading/transport/",
+        "EXPO_PUBLIC_PDF_ORDER":"/invoice/generate"
       }
     }
   },

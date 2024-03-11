@@ -18,14 +18,10 @@ export const CustomerActions = ({ route }) => {
     const [showModalNotDelivered, setShowModalNotDelivered] = useState(false)
     const [showModalMessage, setShowModalMessage] = useState({ show: false, message: '' })
     const [evidence, setEvidence] = useState(null)
-    const [especialInstructions, setEspecialInstructions] = useState()
+    const [specialInstructions, setSpecialInstructions] = useState()
     const [notes, setNotes] = useState('')
     const [statusCustomer, setStatusCustomer] = useState(customer.delivered)
-
-    const {
-        getEspecialInstructions,
-        handleSubmitCustomer,
-    } = useProductSubmit()
+    const { getSpecialInstructions, handleSubmitCustomer } = useProductSubmit()
 
     const confirmNotDelivered = async () => {
         const { status, message } = await handleSubmitCustomer(customer.orders_reference, false, null, notes);
@@ -37,12 +33,12 @@ export const CustomerActions = ({ route }) => {
 
     }
 
-    const getEspecialInstruction = async () => {
+    const getSpecialInstruction = async () => {
         try {
-            const response = await getEspecialInstructions(customer.orders_reference)
-            setEspecialInstructions(response)
+            const response = await getSpecialInstructions(customer.orders_reference)
+            setSpecialInstructions(response)
         } catch (error) {
-            console.error('Error al obtener las instrucciones especiales: ', error)
+            console.error('Error al obtener las instrucciones speciales: ', error)
         }
     }
 
@@ -62,7 +58,7 @@ export const CustomerActions = ({ route }) => {
     }, [evidence]);
 
     useEffect(() => {
-        getEspecialInstruction();
+        getSpecialInstruction()
     }, []);
 
     const handleClose = () => {
@@ -152,10 +148,10 @@ export const CustomerActions = ({ route }) => {
                     </Text>
                 </TouchableOpacity>
 
-                {especialInstructions ? (
+                {specialInstructions ? (
                     <>
-                        <Text style={[ProductStyles.tittleCard, { marginTop: 20, marginBottom: 10 }]}>Especial instructions:</Text>
-                        <Text style={ProductStyles.textCard}>{especialInstructions}</Text>
+                        <Text style={[ProductStyles.tittleCard, { marginTop: 20, marginBottom: 10 }]}>Special instructions:</Text>
+                        <Text style={ProductStyles.textCard}>{specialInstructions}</Text>
                     </>
                 ) : null}
 
