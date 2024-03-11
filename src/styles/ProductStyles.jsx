@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import { colors } from './GlobalStyles'
 
 export const ProductStyles = StyleSheet.create({
