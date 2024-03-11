@@ -22,7 +22,10 @@ export const CustomerActions = ({ route }) => {
     const [notes, setNotes] = useState('')
     const [statusCustomer, setStatusCustomer] = useState(customer.delivered)
 
-    const { getEspecialInstructions, handleSubmitCustomer } = useProductSubmit()
+    const {
+        getEspecialInstructions,
+        handleSubmitCustomer,
+    } = useProductSubmit()
 
     const confirmNotDelivered = async () => {
         const { status, message } = await handleSubmitCustomer(customer.orders_reference, false, null, notes);
@@ -59,7 +62,7 @@ export const CustomerActions = ({ route }) => {
     }, [evidence]);
 
     useEffect(() => {
-        getEspecialInstruction()
+        getEspecialInstruction();
     }, []);
 
     const handleClose = () => {
@@ -165,6 +168,8 @@ export const CustomerActions = ({ route }) => {
                 modalEvidence
                 setEvidence={setEvidence}
                 handleClose={handleClose}
+                navigation={navigation}
+                customer={customer}
             />
 
             <ModalProduct

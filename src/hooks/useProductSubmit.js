@@ -90,6 +90,6 @@ export const useProductSubmit = (insert) => {
   return {
     handleSubmit,
     handleSubmitCustomer,
-    getEspecialInstructions
+    getEspecialInstructions,
   };
 };

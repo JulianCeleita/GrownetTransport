@@ -1,4 +1,4 @@
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons, FontAwesome5 } from '@expo/vector-icons'
 import React from 'react'
 import {
   Modal,
@@ -20,10 +20,12 @@ const ModalProduct = ({
   modalEvidence = null,
   setEvidence = null,
   setNotes = null,
-  handleClose
+  handleClose,
+  navigation = null,
+  customer = null,
 }) => {
 
-  const { pickImageFromGallery, pickImageFromCamera } = useGetEvidence();
+  const { pickImageFromCamera } = useGetEvidence();
 
   return (
     <Modal
@@ -43,11 +45,14 @@ const ModalProduct = ({
               {modalEvidence ? (
                 <View style={ModalStyle.optionsContainer}>
                   <TouchableOpacity
-                    onPress={() => pickImageFromGallery(setEvidence, handleClose)}
+                    onPress={() => {
+                      navigation.navigate('SignaturePage', { customer });
+                      handleClose();
+                    }}
                     style={{ justifyContent: 'center', alignItems: 'center' }}
                   >
-                    <MaterialIcons name="collections" size={35} color={colors.darkBlue} />
-                    <Text style={ModalStyle.modalText}>Gallery</Text>
+                    <FontAwesome5 name="file-signature" size={35} color={colors.darkBlue} />
+                    <Text style={ModalStyle.modalText}>Signature</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => pickImageFromCamera(setEvidence, handleClose)}
