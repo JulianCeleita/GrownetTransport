@@ -15,9 +15,10 @@ import NumericKeyboard from '../../components/numericKeyboard'
 import { loginEmployee } from '../../config/urls.config'
 import logo from '../../img/Logo_Blanco.png'
 import useEmployeeStore from '../../store/useEmployeeStore'
-import useTokenStore from '../../store/useTokenStore'
 import { colors } from '../../styles/GlobalStyles'
 import { LoginStyles, PinNumericStyle } from '../../styles/LoginStyles'
+import NetInfo from "@react-native-community/netinfo";
+
 
 const PinLogin = () => {
   const [pin, setPin] = useState('')
@@ -26,8 +27,7 @@ const PinLogin = () => {
   const [showEmptyInputModal, setShowEmptyInputModal] = useState(false)
   const { setEmployeeToken, setSelectedRoute, setSelectedDate } = useEmployeeStore()
   const [, setKeyboardOpen] = useState(false)
-  const { setToken } = useTokenStore();
-
+  const [showModalNoNet, setShowModalNoNet] = useState(false)
 
   useEffect(() => {
     if (pin.length === 4) {
@@ -57,18 +57,23 @@ const PinLogin = () => {
     }
   }, [])
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     if (pin === '') {
       setShowEmptyInputModal(true)
       return
     }
+
     setLoading(true)
     const requestData = {
       pin: pin,
     }
-    mainAxios
-      .post(loginEmployee, requestData)
-      .then((response) => {
+
+    try {
+
+      const state = await NetInfo.fetch();
+
+      if (state.isConnected && state.isInternetReachable) {
+        const response = await mainAxios.post(loginEmployee, requestData)
         if (response.data.status === 200) {
           console.log('response', JSON.stringify(response.data, null, 2));
           let routeName = null
@@ -82,18 +87,27 @@ const PinLogin = () => {
         } else {
           setShowModal(true)
           setLoading(false)
+          resetPin()
         }
-      })
-      .catch((error) => {
-        setShowModal(true)
+      } else {
+        setShowModalNoNet(true)
         setLoading(false)
-        console.error('Error:', error)
-      })
+        resetPin()
+      }
+    } catch (error) {
+      setShowModal(true)
+      setLoading(false)
+      resetPin()
+      console.error('Error:', error)
+    }
   }
+
   const closeModal = () => {
     setShowModal(false)
+    setShowModalNoNet(false)
     setShowEmptyInputModal(false)
   }
+
   const handleOutsidePress = () => {
     closeModal()
   }
@@ -101,9 +115,11 @@ const PinLogin = () => {
   const dismissKeyboard = () => {
     Keyboard.dismiss()
   }
+
   const resetPin = () => {
     setPin('')
   }
+
   const handleBackspace = () => {
     if (pin !== '') {
       setPin(pin.slice(0, -1))
@@ -165,6 +181,14 @@ const PinLogin = () => {
             Title="We're sorry"
             message="Please enter your pin"
             message2="Try again"
+          />
+          <ModalAlert
+            showModal={showModalNoNet}
+            closeModal={closeModal}
+            handleOutsidePress={handleOutsidePress}
+            Title="We're sorry"
+            message="application without internet"
+            message2="try later"
           />
         </View>
       </TouchableWithoutFeedback>
