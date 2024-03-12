@@ -8,15 +8,18 @@ import * as FileSystem from 'expo-file-system';
 import { useProductSubmit } from '../../hooks/useProductSubmit';
 import ModalMessage from '../../components/ModalMessage';
 import { useNavigation } from '@react-navigation/native';
+import { ModalLoading } from '../../components/ModalLoading';
 
 export const SignaturePage = ({ route }) => {
     const { customer } = route.params;
     const navigation = useNavigation();
+    const [loading, setLoading] = useState(false)
 
     const { handleSubmitCustomer } = useProductSubmit();
     const [showModalMessage, setShowModalMessage] = useState({ show: false, message: '' })
 
     const handleSignature = async (signature) => {
+        setLoading(true);
         const fileName = FileSystem.documentDirectory + `${customer.orders_reference}_signature.png`;
         await FileSystem.writeAsStringAsync(fileName, signature.split('data:image/png;base64,')[1], {
             encoding: FileSystem.EncodingType.Base64,
@@ -29,6 +32,7 @@ export const SignaturePage = ({ route }) => {
         };
 
         const { status, message } = await handleSubmitCustomer(customer.orders_reference, true, fileObject, null);
+        setLoading(false);
         setShowModalMessage({ show: status, message: message })
     };
 
@@ -55,6 +59,7 @@ export const SignaturePage = ({ route }) => {
                 title={`Order: ${customer.orders_reference}`}
                 text="The order has been updated successfully"
             />
+            <ModalLoading loading={loading} />
         </View>
     );
 };

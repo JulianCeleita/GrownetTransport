@@ -9,6 +9,7 @@ import { useProductSubmit } from '../../hooks/useProductSubmit'
 import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
 import { GlobalStyles, colors } from '../../styles/GlobalStyles'
 import { ProductStyles } from '../../styles/ProductStyles'
+import { ModalLoading } from '../../components/ModalLoading'
 
 export const CustomerActions = ({ route }) => {
 
@@ -21,11 +22,14 @@ export const CustomerActions = ({ route }) => {
     const [specialInstructions, setSpecialInstructions] = useState()
     const [notes, setNotes] = useState('')
     const [statusCustomer, setStatusCustomer] = useState(customer.delivered)
+    const [loading, setLoading] = useState(false)
     const { getSpecialInstructions, handleSubmitCustomer } = useProductSubmit()
 
     const confirmNotDelivered = async () => {
+        setLoading(true);
         const { status, message } = await handleSubmitCustomer(customer.orders_reference, false, null, notes);
-        setShowModalMessage({ show: status, message: message })
+        setLoading(false);
+        setShowModalMessage({ show: true, message: message })
         if (status) {
             setStatusCustomer(false)
         }
@@ -38,14 +42,16 @@ export const CustomerActions = ({ route }) => {
             const response = await getSpecialInstructions(customer.orders_reference)
             setSpecialInstructions(response)
         } catch (error) {
-            console.error('Error al obtener las instrucciones speciales: ', error)
+            console.error('Error al obtener las instrucciones especiales: ', error)
         }
     }
 
     const submitEvidence = async () => {
         if (evidence !== null) {
+            setLoading(true);
             const { status, message } = await handleSubmitCustomer(customer.orders_reference, true, evidence, null);
-            setShowModalMessage({ show: status, message: message })
+            setLoading(false);
+            setShowModalMessage({ show: true, message: message })
             if (status) {
                 setStatusCustomer(true)
             }
@@ -160,7 +166,7 @@ export const CustomerActions = ({ route }) => {
             <ModalProduct
                 showModal={showModalEvidence}
                 title={`Order: ${customer.orders_reference}`}
-                text={`Select evidence to add to order.`}
+                text={`To change the status of the order it is mandatory to send evidence.`}
                 modalEvidence
                 setEvidence={setEvidence}
                 handleClose={handleClose}
@@ -184,6 +190,8 @@ export const CustomerActions = ({ route }) => {
                 title={`Order: ${customer.orders_reference}`}
                 text="The order has been updated successfully"
             />
+
+            <ModalLoading loading={loading} />
 
         </SafeAreaView>
     )
