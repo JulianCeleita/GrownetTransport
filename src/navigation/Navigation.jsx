@@ -74,7 +74,7 @@ function MyTabs() {
         }}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Assignments"
         component={AssignmentsPage}
         options={{
@@ -87,7 +87,8 @@ function MyTabs() {
           ),
           unmountOnBlur: true,
         }}
-      />
+      /> */}
+
     </Tab.Navigator>
   )
 }
