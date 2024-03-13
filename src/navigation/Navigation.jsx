@@ -6,7 +6,7 @@ import {
   Poppins_700Bold,
   useFonts,
 } from '@expo-google-fonts/poppins'
-import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
+import { Feather, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -21,6 +21,7 @@ import { colors } from '../styles/GlobalStyles'
 import { ShortsVanPage } from '../screens/ShortsVan/ShortsVanPage'
 import { ProductsPage } from '../screens/Customers/ProductsPage'
 import { SignaturePage } from '../screens/Customers/SignaturePage'
+import { AssignmentsPage } from '../screens/Assignments/AssignmentsPage'
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -65,6 +66,21 @@ function MyTabs() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
               name="package-variant"
+              size={size}
+              color={color}
+            />
+          ),
+          unmountOnBlur: true,
+        }}
+      />
+
+      <Tab.Screen
+        name="Assignments"
+        component={AssignmentsPage}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons
+              name="assignment-ind"
               size={size}
               color={color}
             />
