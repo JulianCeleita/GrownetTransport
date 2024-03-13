@@ -73,8 +73,8 @@ function MyTabs() {
           unmountOnBlur: true,
         }}
       />
-
-      <Tab.Screen
+      {/* TODO: Descomentar para seguir con assignment */}
+      {/* <Tab.Screen
         name="Assignments"
         component={AssignmentsPage}
         options={{
@@ -87,7 +87,8 @@ function MyTabs() {
           ),
           unmountOnBlur: true,
         }}
-      />
+      /> */}
+
     </Tab.Navigator>
   )
 }
