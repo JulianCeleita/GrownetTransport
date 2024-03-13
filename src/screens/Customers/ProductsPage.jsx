@@ -74,7 +74,7 @@ export const ProductsPage = ({ route }) => {
                         style={CustomerDayStyles.icon}
                     >
                         <Ionicons
-                            name="md-search-circle-outline"
+                            name="search-circle-outline"
                             size={35}
                             color={colors.darkBlue}
                         />
