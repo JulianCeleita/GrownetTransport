@@ -24,6 +24,9 @@
       "android": {
         "buildType": "apk"
       },
+      "ios": {
+        "simulator": true
+      },
       "env": {
         "EXPO_PUBLIC_BASE_URL": "https://api.grownetapp.com/grownet/api",
         "EXPO_PUBLIC_LOGIN": "/login/login",
