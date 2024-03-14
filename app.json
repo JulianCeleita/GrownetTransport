@@ -2,7 +2,7 @@
   "expo": {
     "name": "Grownet Transport",
     "slug": "Grownettransport",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "orientation": "portrait",
     "icon": "./assets/IconBlanco.png",
     "userInterfaceStyle": "light",
@@ -18,13 +18,13 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.creativejungle.grownettransport",
       "icon": "./assets/IconBlanco.png",
-      "buildNumber": "1.0.8",
+      "buildNumber": "1.0.9",
       "infoPlist": {
         "NSCameraUsageDescription": "We need access to your camera to allow you to take photos of delivery evidence within the app. Your photos will be stored locally on your device, and with your consent, they can be stored in our database as proof that the job was completed."
       }
     },
     "android": {
-      "versionCode": 8,
+      "versionCode": 9,
       "adaptiveIcon": {
         "foregroundImage": "./assets/IconBlancoAndroid.png",
         "backgroundColor": "#ffffff"
