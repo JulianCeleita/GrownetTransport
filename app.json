@@ -6,6 +6,18 @@
     "orientation": "portrait",
     "icon": "./assets/IconBlanco.png",
     "userInterfaceStyle": "light",
+    "updates": {
+      "enabled": true,
+      "url": "https://u.expo.dev/4ebaf71a-7fb1-4617-ad51-51d96de49993"
+    },
+    "plugins": [
+      [
+        "expo-updates",
+        {
+          "username": "engineers@creativejungle.co"
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/SplashBlanco.png",
       "resizeMode": "contain",
@@ -41,6 +53,9 @@
       "eas": {
         "projectId": "4ebaf71a-7fb1-4617-ad51-51d96de49993"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
