@@ -2,22 +2,10 @@
   "expo": {
     "name": "Grownet Transport",
     "slug": "Grownettransport",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "orientation": "portrait",
     "icon": "./assets/IconBlanco.png",
     "userInterfaceStyle": "light",
-    "updates": {
-      "enabled": true,
-      "url": "https://u.expo.dev/4ebaf71a-7fb1-4617-ad51-51d96de49993"
-    },
-    "plugins": [
-      [
-        "expo-updates",
-        {
-          "username": "engineers@creativejungle.co"
-        }
-      ]
-    ],
     "splash": {
       "image": "./assets/SplashBlanco.png",
       "resizeMode": "contain",
@@ -30,13 +18,13 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.creativejungle.grownettransport",
       "icon": "./assets/IconBlanco.png",
-      "buildNumber": "1.0.9",
+      "buildNumber": "1.0.10",
       "infoPlist": {
         "NSCameraUsageDescription": "We need access to your camera to allow you to take photos of delivery evidence within the app. Your photos will be stored locally on your device, and with your consent, they can be stored in our database as proof that the job was completed."
       }
     },
     "android": {
-      "versionCode": 9,
+      "versionCode": 10,
       "adaptiveIcon": {
         "foregroundImage": "./assets/IconBlancoAndroid.png",
         "backgroundColor": "#ffffff"
@@ -56,6 +44,17 @@
     },
     "runtimeVersion": {
       "policy": "appVersion"
+    },
+    "plugins": [
+      [
+        "expo-updates",
+        {
+          "username": "grownetapp"
+        }
+      ]
+    ],
+    "updates": {
+      "url": "https://u.expo.dev/4ebaf71a-7fb1-4617-ad51-51d96de49993"
     }
   }
 }

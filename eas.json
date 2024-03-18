@@ -16,8 +16,9 @@
         "EXPO_PUBLIC_ORDER_INSERT": "/orders/setDelivered/",
         "EXPO_PUBLIC_INSTRUCTIONS": "/orders/especialInstructions/",
         "EXPO_PUBLIC_PRODUCTS_TRANSPORT": "/loading/transport/",
-        "EXPO_PUBLIC_PDF_ORDER":"/invoice/generate"
-      }
+        "EXPO_PUBLIC_PDF_ORDER": "/invoice/generate"
+      },
+      "channel": "development"
     },
     "preview": {
       "distribution": "internal",
@@ -37,8 +38,9 @@
         "EXPO_PUBLIC_ORDER_INSERT": "/orders/setDelivered/",
         "EXPO_PUBLIC_INSTRUCTIONS": "/orders/especialInstructions/",
         "EXPO_PUBLIC_PRODUCTS_TRANSPORT": "/loading/transport/",
-        "EXPO_PUBLIC_PDF_ORDER":"/invoice/generate"
-      }
+        "EXPO_PUBLIC_PDF_ORDER": "/invoice/generate"
+      },
+      "channel": "preview"
     },
     "production": {
       "env": {
@@ -51,8 +53,9 @@
         "EXPO_PUBLIC_ORDER_INSERT": "/orders/setDelivered/",
         "EXPO_PUBLIC_INSTRUCTIONS": "/orders/especialInstructions/",
         "EXPO_PUBLIC_PRODUCTS_TRANSPORT": "/loading/transport/",
-        "EXPO_PUBLIC_PDF_ORDER":"/invoice/generate"
-      }
+        "EXPO_PUBLIC_PDF_ORDER": "/invoice/generate"
+      },
+      "channel": "production"
     }
   },
   "submit": {
