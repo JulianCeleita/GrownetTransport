@@ -1,7 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { Platform, SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
+import { Platform, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { BtnGoBack } from '../../components/BtnGoBack'
 import { ModalLoading } from '../../components/ModalLoading'
 import ModalMessage from '../../components/ModalMessage'
@@ -10,6 +10,7 @@ import { useProductSubmit } from '../../hooks/useProductSubmit'
 import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
 import { GlobalStyles, colors } from '../../styles/GlobalStyles'
 import { ProductStyles } from '../../styles/ProductStyles'
+import ModalNotes from '../../components/ModalNotes'
 
 export const CustomerActions = ({ route }) => {
 
@@ -23,6 +24,8 @@ export const CustomerActions = ({ route }) => {
     const [notes, setNotes] = useState('')
     const [statusCustomer, setStatusCustomer] = useState(customer.delivered)
     const [loading, setLoading] = useState(false)
+    const [showModalNotes, setShowModalNotes] = useState(false)
+    const [notesOrder, setNotesOrder] = useState('')
     const { getSpecialInstructions, handleSubmitCustomer } = useProductSubmit()
 
     const confirmNotDelivered = async () => {
@@ -58,6 +61,16 @@ export const CustomerActions = ({ route }) => {
         }
     }
 
+    const sendNotesOrder = async () => {
+        if (notesOrder === '') {
+            return
+        }
+        setShowModalNotes(false);
+        console.log('notesOrder: ', notesOrder);
+        // TODO: send notesOrder to the server
+        setNotesOrder('');
+    }
+
     useEffect(() => {
         submitEvidence()
     }, [evidence]);
@@ -73,6 +86,10 @@ export const CustomerActions = ({ route }) => {
 
         if (showModalNotDelivered) {
             setShowModalNotDelivered(false);
+        }
+
+        if (showModalNotes) {
+            setShowModalNotes(false);
         }
     }
 
@@ -97,11 +114,24 @@ export const CustomerActions = ({ route }) => {
             <View style={CustomerDayStyles.actionsContainer}>
 
                 <TouchableOpacity
+                    // onPress={() => navigation.navigate('ProductsPage', { customer })}
+                    style={[
+                        ProductStyles.card,
+                        GlobalStyles.boxShadow,
+                        { justifyContent: 'center', alignItems: 'center', height: 80 }
+                    ]}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <MaterialIcons style={{ marginRight: 10 }} name="location-pin" size={35} color={colors.darkBlue} />
+                        <Text style={ProductStyles.tittleCard}>Information</Text>
+                    </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
                     onPress={() => navigation.navigate('ProductsPage', { customer })}
                     style={[
                         ProductStyles.card,
                         GlobalStyles.boxShadow,
-                        { justifyContent: 'center', alignItems: 'center' }
+                        { justifyContent: 'center', alignItems: 'center', height: 80 }
                     ]}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <MaterialIcons style={{ marginRight: 10 }} name="list" size={35} color={colors.darkBlue} />
@@ -118,6 +148,7 @@ export const CustomerActions = ({ route }) => {
                         {
                             justifyContent: 'center',
                             alignItems: 'center',
+                            height: 80,
                             backgroundColor: statusCustomer === true ? colors.green : 'white'
                         }
                     ]}>
@@ -142,6 +173,7 @@ export const CustomerActions = ({ route }) => {
                         {
                             justifyContent: 'center',
                             alignItems: 'center',
+                            height: 80,
                             backgroundColor: statusCustomer === false ? colors.danger : 'white'
                         }
                     ]}>
@@ -155,10 +187,25 @@ export const CustomerActions = ({ route }) => {
                     </Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity
+                    onPress={() => setShowModalNotes(true)}
+                    style={[
+                        ProductStyles.card,
+                        GlobalStyles.boxShadow,
+                        { justifyContent: 'center', alignItems: 'center', height: 80 }
+                    ]}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <MaterialIcons style={{ marginRight: 10 }} name="notes" size={35} color={colors.darkBlue} />
+                        <Text style={ProductStyles.tittleCard}>Notes</Text>
+                    </View>
+                </TouchableOpacity>
+
                 {specialInstructions ? (
                     <>
                         <Text style={[ProductStyles.tittleCard, { marginTop: 20, marginBottom: 10 }]}>Special instructions:</Text>
-                        <Text style={ProductStyles.textCard}>{specialInstructions}</Text>
+                        <ScrollView style={{ width: '100%', height: 100, paddingHorizontal: 35 }}>
+                            <Text style={ProductStyles.textCard}>{specialInstructions}</Text>
+                        </ScrollView>
                     </>
                 ) : null}
 
@@ -184,12 +231,20 @@ export const CustomerActions = ({ route }) => {
                 handleClose={handleClose}
             />
 
-
             <ModalMessage
                 showModal={showModalMessage.show}
                 closeModalMessage={closeModalMessage}
                 title={`Order: ${customer.orders_reference}`}
                 text="The order has been updated successfully"
+            />
+
+            <ModalNotes
+                showModal={showModalNotes}
+                closeModalMessage={handleClose}
+                title={`Order: ${customer.orders_reference}`}
+                text="Add your notes about this order here."
+                setNotesOrder={setNotesOrder}
+                sendNotesOrder={sendNotesOrder}
             />
 
             <ModalLoading loading={loading} />
