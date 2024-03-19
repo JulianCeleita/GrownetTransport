@@ -3,10 +3,10 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons'
 
-export const BtnGoBack = ({ color, top = 10, left = 10 }) => {
+export const BtnGoBack = ({ color }) => {
     const { goBack } = useNavigation()
     return (
-        <View style={{ position: 'absolute', zIndex: 100, top, left }}>
+        <View style={{ marginHorizontal: 5 }}>
             <Feather
                 name="arrow-left"
                 size={27}

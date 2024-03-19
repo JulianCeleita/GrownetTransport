@@ -3,13 +3,13 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
 import { Platform, SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
 import { BtnGoBack } from '../../components/BtnGoBack'
+import { ModalLoading } from '../../components/ModalLoading'
 import ModalMessage from '../../components/ModalMessage'
 import ModalProduct from '../../components/ModalProduct'
 import { useProductSubmit } from '../../hooks/useProductSubmit'
 import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
 import { GlobalStyles, colors } from '../../styles/GlobalStyles'
 import { ProductStyles } from '../../styles/ProductStyles'
-import { ModalLoading } from '../../components/ModalLoading'
 
 export const CustomerActions = ({ route }) => {
 
@@ -34,7 +34,6 @@ export const CustomerActions = ({ route }) => {
             setStatusCustomer(false)
         }
         handleClose();
-
     }
 
     const getSpecialInstruction = async () => {
@@ -84,8 +83,10 @@ export const CustomerActions = ({ route }) => {
 
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>
-            <BtnGoBack color={colors.darkBlue} top={Platform.OS === 'ios' ? 60 : 15} />
-            <View style={CustomerDayStyles.title2}>
+            <View style={[CustomerDayStyles.title2, { marginTop: Platform.OS === 'android' ? 10 : 0 }]}>
+                <View style={{ marginRight: 20 }}>
+                    <BtnGoBack color={colors.darkBlue} />
+                </View>
                 <Text style={CustomerDayStyles.customerTitle}>
                     {customer.accountName}
                 </Text>

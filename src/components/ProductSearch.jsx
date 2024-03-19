@@ -3,14 +3,18 @@ import React from 'react'
 import { TextInput, TouchableOpacity, View } from 'react-native'
 import { colors } from '../styles/GlobalStyles'
 import { SearchStyles } from '../styles/ProductStyles'
+import { BtnGoBack } from './BtnGoBack'
 
 function ProductSearcher({ setSearch, searchPhrase, setSearchPhrase }) {
+
   const handleClose = () => {
     setSearch(false)
     setSearchPhrase('')
   }
+
   return (
-    <View style={SearchStyles.view}>
+    <View style={[SearchStyles.view, { marginHorizontal: 10 }]}>
+      <BtnGoBack color={colors.darkBlue} top={20} />
       <View style={SearchStyles.containerSearch}>
         <TextInput
           style={SearchStyles.BgInput}
@@ -27,7 +31,7 @@ function ProductSearcher({ setSearch, searchPhrase, setSearchPhrase }) {
         style={SearchStyles.iconClose}
       >
         <Ionicons
-          name="ios-close-circle-outline"
+          name="close-circle-outline"
           size={38}
           color={colors.darkBlue}
         />

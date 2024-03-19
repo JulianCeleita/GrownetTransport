@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback } from 'react'
-import { ActivityIndicator, SafeAreaView, ScrollView, Text, View } from 'react-native'
+import { ActivityIndicator, Platform, SafeAreaView, ScrollView, Text, View } from 'react-native'
 import CustomerCard from '../../components/CustomerCard'
 import { useCustomersStore } from '../../store/useCustomersStore'
 import useEmployeeStore from '../../store/useEmployeeStore'
@@ -33,7 +33,7 @@ export const CustomersPage = () => {
                 style={{ marginRight: -3 }}
                 contentContainerStyle={{ paddingRight: 3 }}
             >
-                <View style={CustomerDayStyles.title2}>
+                <View style={[CustomerDayStyles.title2, { marginTop: Platform.OS === 'android' ? 20 : 0 }]}>
                     <Text style={CustomerDayStyles.customerTitle}>
                         {`Customer's`} - {selectedRoute}
                     </Text>

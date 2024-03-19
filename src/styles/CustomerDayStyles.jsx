@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { colors } from './GlobalStyles'
 
 export const CustomerDayStyles = StyleSheet.create({
@@ -31,11 +31,6 @@ export const CustomerDayStyles = StyleSheet.create({
     color: colors.bluePrimary,
     fontFamily: 'PoppinsBold',
     textAlign: 'center',
-  },
-  icon: {
-    position: 'absolute',
-    right: 18,
-    top: 5,
   },
   cardsCustomers: {
     flex: 1,
@@ -108,10 +103,6 @@ export const CustomerDayStyles = StyleSheet.create({
   titleNA: {
     flexDirection: 'row',
     alignItems: 'center',
-    position: 'absolute',
-    height: 80,
-    top: Platform.OS === 'ios' ? -26 : -23,
-    left: 85,
   },
   restaurantTypeTitle: {
     fontSize: 16,

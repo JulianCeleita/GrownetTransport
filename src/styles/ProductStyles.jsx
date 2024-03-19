@@ -121,8 +121,7 @@ export const ProductStyles = StyleSheet.create({
     color: colors.bluePrimary,
     fontFamily: 'PoppinsBold',
     textAlign: 'center',
-    marginBottom: 10,
-    marginTop: 10,
+    padding: 3,
   },
   textNA: {
     fontFamily: 'PoppinsMedium',
@@ -145,17 +144,14 @@ export const SearchStyles = StyleSheet.create({
   containerSearch: {
     flexDirection: 'row',
     height: 50,
-    borderRadius: 40,
-    marginTop: 10,
+    borderRadius: 10,
     backgroundColor: '#f2f2f2',
-    marginLeft: 35,
-    width: '78%',
-    marginBottom: -10,
+    width: '80%',
   },
 
   BgInput: {
     flex: 1,
-    borderRadius: 51,
+    borderRadius: 10,
     paddingLeft: 20,
     fontSize: 16,
     color: '#04444f',
@@ -168,8 +164,9 @@ export const SearchStyles = StyleSheet.create({
     top: 13,
   },
   iconClose: {
-    marginLeft: 5,
-    marginTop: 10,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 5,
   },
   alertSearch: {
     alignItems: 'center',

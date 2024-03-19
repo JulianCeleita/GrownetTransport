@@ -1,15 +1,17 @@
+import { Ionicons } from '@expo/vector-icons'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, Platform, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import ProductSearcher from '../../components/ProductSearch'
 import { ProductsCardShortsVan } from '../../components/ProductsCardShortsVan'
+import { insertShort } from '../../config/urls.config'
+import { useProductSubmit } from '../../hooks/useProductSubmit'
 import useEmployeeStore from '../../store/useEmployeeStore'
 import { useShortVanStore } from '../../store/useShortVanStore'
 import { CustomerDayStyles } from '../../styles/CustomerDayStyles'
-import { GlobalStyles } from '../../styles/GlobalStyles'
+import { GlobalStyles, colors } from '../../styles/GlobalStyles'
 import { ProductStyles } from '../../styles/ProductStyles'
-import { useProductSubmit } from '../../hooks/useProductSubmit'
-import { insertShort } from '../../config/urls.config'
 
 export const ShortsVanPage = () => {
 
@@ -24,6 +26,8 @@ export const ShortsVanPage = () => {
 
     const { employeeToken, selectedDate, selectedRoute } = useEmployeeStore()
     const [toggle, setToggle] = useState(false)
+    const [search, setSearch] = useState(false)
+    const [searchPhrase, setSearchPhrase] = useState('')
 
     useFocusEffect(
         useCallback(() => {
@@ -46,6 +50,16 @@ export const ShortsVanPage = () => {
             toggle
         )
     }, [toggle])
+
+    const filteredData = shortVanProducts.map((restaurant) => {
+        let filteredProducts = restaurant.products.filter((product) =>
+            product.name
+                .trim()
+                .toLowerCase()
+                .includes(searchPhrase.trim().toLowerCase()),
+        )
+        return { ...restaurant, products: filteredProducts }
+    })
 
     const updateProductsVan = (itemId, quantity = null, state = null) => {
         const newProducts = shortVanProducts.map((itemProd) => {
@@ -75,15 +89,29 @@ export const ShortsVanPage = () => {
         setToggle((previousToggle) => !previousToggle)
     }
 
-    console.log('shortVanProducts', JSON.stringify(shortVanProducts, null, 2));
-
     return (
         <SafeAreaView style={ProductStyles.products}>
-            <View style={CustomerDayStyles.title2}>
-                <View>
-                    <Text style={CustomerDayStyles.customerTitle}>
-                        {selectedRoute}
-                    </Text>
+            {search ? (
+                <View style={{ marginTop: Platform.OS === 'android' ? 20 : 0 }} >
+                    <ProductSearcher
+                        setSearch={setSearch}
+                        searchPhrase={searchPhrase}
+                        setSearchPhrase={setSearchPhrase}
+                    />
+                </View>
+            ) : (
+                <View style={{
+                    paddingHorizontal: 30,
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: Platform.OS === 'android' ? 20 : 0
+                }}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={CustomerDayStyles.customerTitle}>
+                            {selectedRoute}
+                        </Text>
+                    </View>
                     <View style={CustomerDayStyles.titleNA}>
                         <Text style={CustomerDayStyles.restaurantTypeTitle}>N/A</Text>
                         <TouchableOpacity onPress={toggleButton} activeOpacity={1}>
@@ -108,9 +136,18 @@ export const ShortsVanPage = () => {
                                 />
                             </View>
                         </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setSearch(true)}
+                        >
+                            <Ionicons
+                                name="search-circle-outline"
+                                size={38}
+                                color={colors.darkBlue}
+                            />
+                        </TouchableOpacity>
                     </View>
                 </View>
-            </View>
+            )}
             <KeyboardAwareScrollView
                 enableOnAndroid
                 extraScrollHeight={Platform.OS === 'android' ? 210 : 210}
@@ -132,7 +169,7 @@ export const ShortsVanPage = () => {
                         </View>
                     ) : (
                         <View>
-                            {shortVanProducts.length === 0 ? (
+                            {filteredData.length === 0 ? (
                                 <View
                                     style={{
                                         flex: 1,
@@ -144,7 +181,7 @@ export const ShortsVanPage = () => {
                                     <Text style={CustomerDayStyles.textCustomer}>There are no products to show.</Text>
                                 </View>
                             ) : (
-                                shortVanProducts.map((restaurant) => (
+                                filteredData.map((restaurant) => (
                                     restaurant.products.length > 0 && (
                                         <View key={restaurant.customerName}>
                                             <Text style={[CustomerDayStyles.restaurantTypeTitle]}>

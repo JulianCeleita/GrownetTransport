@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
-import { ActivityIndicator, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Platform, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { BtnGoBack } from '../../components/BtnGoBack';
 import ProductSearcher from '../../components/ProductSearch';
 import { ProductsCard } from '../../components/ProductsCard';
@@ -50,8 +50,7 @@ export const ProductsPage = ({ route }) => {
     return (
         <SafeAreaView style={ProductStyles.products}>
             {search ? (
-                <View>
-                    <BtnGoBack color={colors.darkBlue} top={20} />
+                <View style={{ marginTop: Platform.OS === 'android' ? 20 : 0 }}>
                     <ProductSearcher
                         setSearch={setSearch}
                         searchPhrase={searchPhrase}
@@ -59,23 +58,30 @@ export const ProductsPage = ({ route }) => {
                     />
                 </View>
             ) : (
-                <View style={{ paddingHorizontal: 43, width: '100%' }}>
+                <View style={{
+                    paddingHorizontal: 10,
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: Platform.OS === 'android' ? 20 : 0
+                }}>
+
                     <BtnGoBack color={colors.darkBlue} />
-                    <View>
+                    <View style={{ flexDirection: 'column' }}>
                         <Text style={ProductStyles.customerTitle}>
-                            <Text>{customer.accountName} - </Text>
-                            <Text style={{ flexWrap: 'wrap' }}>
-                                {products ? customer.orderNumber : 'Loading...'}
-                            </Text>
+                            {customer.accountName}
+                        </Text>
+                        <Text style={ProductStyles.customerTitle}>
+                            {products ? customer.accountNumber : 'Loading...'}
                         </Text>
                     </View>
+
                     <TouchableOpacity
                         onPress={handleSearch}
-                        style={CustomerDayStyles.icon}
                     >
                         <Ionicons
                             name="search-circle-outline"
-                            size={35}
+                            size={38}
                             color={colors.darkBlue}
                         />
                     </TouchableOpacity>
