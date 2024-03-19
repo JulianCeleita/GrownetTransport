@@ -18,7 +18,7 @@ export function ProductsCard({
   }
 
   if (item.state_definitive === 'FULL') {
-    backColor = colors.green;
+    backColor = colors.bluePrimary;
     iconName = 'checkcircleo';
   }
 
