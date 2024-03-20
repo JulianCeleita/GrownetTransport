@@ -101,12 +101,14 @@ export const CustomerActions = ({ route }) => {
     return (
         <SafeAreaView style={CustomerDayStyles.customerPrincipal}>
             <View style={[CustomerDayStyles.title2, { marginTop: Platform.OS === 'android' ? 10 : 0 }]}>
-                <View style={{ marginRight: 20 }}>
+                <View>
                     <BtnGoBack color={colors.darkBlue} />
                 </View>
-                <Text style={CustomerDayStyles.customerTitle}>
-                    {customer.accountName}
-                </Text>
+                <View style={{ width: '80%' }}>
+                    <Text style={CustomerDayStyles.customerTitle}>
+                        {customer.accountName}
+                    </Text>
+                </View>
             </View>
             <View style={CustomerDayStyles.titleActionContainer}>
                 <Text style={ProductStyles.tittleCard}>Order: {customer.orders_reference}</Text>
@@ -135,7 +137,7 @@ export const CustomerActions = ({ route }) => {
                     ]}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <MaterialIcons style={{ marginRight: 10 }} name="list" size={35} color={colors.darkBlue} />
-                        <Text style={ProductStyles.tittleCard}>Products</Text>
+                        <Text style={ProductStyles.tittleCard}>Delivery Note</Text>
                     </View>
                 </TouchableOpacity>
 

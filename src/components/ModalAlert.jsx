@@ -1,19 +1,19 @@
 import { MaterialIcons } from '@expo/vector-icons'
 import React from 'react'
 import {
-    Modal,
-    Text,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View,
+  Modal,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
 } from 'react-native'
 import { GlobalStyles } from '../styles/GlobalStyles'
 import { ModalStyle } from '../styles/ModalStyles'
 
 const ModalAlert = ({
   showModal,
-  closeModal = () => {},
-  handleOutsidePress = () => {},
+  closeModal = () => { },
+  handleOutsidePress = () => { },
   Title = '',
   message = '',
   message2 = '',
@@ -36,7 +36,7 @@ const ModalAlert = ({
               >
                 {Title}
               </Text>
-              <Text style={ModalStyle.modalText}>{message}</Text>
+              <Text style={[ModalStyle.modalText, { marginVertical: 10 }]}>{message}</Text>
               <TouchableOpacity
                 onPress={closeModal}
                 style={[GlobalStyles.btnPrimary, ModalStyle.space]}
